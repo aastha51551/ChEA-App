@@ -55,7 +55,8 @@ class _MyAppState extends State<MyApp> {
           ),
           body: Column(
             children: [
-              opportunities(Opportunities), //Opportunitites Section
+              opportunities(Opportunities),
+              //Opportunitites Section
               //What's Happening Section
               Container(
                   width: width,
@@ -64,7 +65,7 @@ class _MyAppState extends State<MyApp> {
                     Padding(
                       padding: EdgeInsets.all(15.0),
                       child: Text(
-                        "WHAT'S HAPPEING",
+                        "WHAT'S HAPPENING",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 28,
@@ -184,33 +185,31 @@ Container opportunities(List<Map<String, String>> Opportunities) {
   return Container(
     color: Color(defaultBackground),
     child: Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.only(left: 15.0),
-          child: Text(
-            'YOUR OPPORTUNITITES',
-            style: TextStyle(
-                color: Colors.white, fontSize: 28, fontWeight: FontWeight.w700),
-          ),
+          padding: const EdgeInsets.only(left: 20.0),
+          child: Text('Your Opportunities',
+              style: GoogleFonts.nunitoSans(
+                fontSize: 32,
+                fontWeight: FontWeight.w700,
+                color: Color(0xffffffff),
+              )),
         ),
-        const SizedBox(
-          height: 20,
-        ),
-        Center(
-          child: SizedBox(
-            height: 185,
-            width: double.infinity,
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: Opportunities.length,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: _opportunities(Opportunities[index]),
-                );
-              },
-            ),
+        SizedBox(
+          height: 185,
+          width: double.infinity,
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: Opportunities.length,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: _opportunities(Opportunities[index]),
+              );
+            },
           ),
         ),
       ],
@@ -218,7 +217,7 @@ Container opportunities(List<Map<String, String>> Opportunities) {
   );
 }
 
-Widget _opportunities(Map<String, String> Opportunitiy) {
+Widget _opportunities(Map<String, String> Opportunity) {
   return Container(
     width: 225,
     decoration: BoxDecoration(
@@ -231,7 +230,7 @@ Widget _opportunities(Map<String, String> Opportunitiy) {
             padding: const EdgeInsets.only(
                 left: 20.0, right: 8.0, top: 15.0, bottom: 0.0),
             child: Text(
-              Opportunitiy['title'] ?? 'Not Defined',
+              Opportunity['title'] ?? 'Not Defined',
               // style: TextStyle(
 
               //     color: Colors.grey[400],
@@ -251,7 +250,7 @@ Widget _opportunities(Map<String, String> Opportunitiy) {
           child: Padding(
             padding: const EdgeInsets.only(left: 20.0),
             child: Text(
-              Opportunitiy['provider'] ?? 'Not Defined',
+              Opportunity['provider'] ?? 'Not Defined',
               style: GoogleFonts.montserrat(
                   fontWeight: FontWeight.w600,
                   fontSize: 14,
@@ -275,7 +274,7 @@ Widget _opportunities(Map<String, String> Opportunitiy) {
                 width: 5,
               ),
               Text(
-                Opportunitiy['timePosted'] ?? 'Not Defined',
+                Opportunity['timePosted'] ?? 'Not Defined',
                 style: GoogleFonts.montserrat(
                     fontWeight: FontWeight.w600,
                     fontSize: 14,
