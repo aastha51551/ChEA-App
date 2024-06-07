@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last
 
+import 'package:chea/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,14 +11,9 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -44,267 +40,163 @@ class _MyAppState extends State<MyApp> {
             toolbarHeight: 100,
             backgroundColor: Color(defaultBackground),
             elevation: 0,
-            leading: SvgPicture.asset(
-              'assets/icons/logo.svg',
-              height: 50,
-              width: 50,
-            ),
-            title: const Text('ChEA',
-                style: TextStyle(color: Colors.white),
-                textAlign: TextAlign.center),
-          ),
-          body: Column(
-            children: [
-              opportunities(Opportunities),
-              //Opportunitites Section
-              //What's Happening Section
-              Container(
-                  width: width,
-                  color: Color(defaultBackground),
-                  child: const Column(children: [
-                    Padding(
-                      padding: EdgeInsets.all(15.0),
-                      child: Text(
-                        "WHAT'S HAPPENING",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 28,
-                            fontWeight: FontWeight.w700),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    )
-                  ])),
-              Container(
-                color: Color(defaultBackground),
-                height: height * 0.3,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                              height: 250,
-                              child: Center(
-                                  child: Text(
-                                'Trad Day',
-                                style: TextStyle(
-                                  fontSize: 32,
-                                ),
-                              )),
-                              margin: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Colors.grey[500]))),
-                      Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                              height: 250,
-                              child: Center(
-                                  child: Text(
-                                'Dept Trip',
-                                style: TextStyle(
-                                  fontSize: 32,
-                                ),
-                              )),
-                              margin: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Colors.grey[500])))
-                    ],
-                  ),
-                ),
+            centerTitle: false,
+            automaticallyImplyLeading: false,
+            actions: [
+              Padding(
+                padding: const EdgeInsets.only(right: 15.0, top: 20),
+                child: Builder(builder: (context) {
+                  return IconButton(
+                      onPressed: () {
+                        Scaffold.of(context).openEndDrawer();
+                      },
+                      icon: SvgPicture.asset(
+                        'assets/icons/Hamburger_LG.svg',
+                        height: 40,
+                        colorFilter:
+                            ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                      ));
+                }),
               ),
             ],
+            title: Image.asset(
+              'assets/icons/logo.png',
+              height: 90,
+              alignment: Alignment.centerLeft,
+            ),
           ),
+          body:
+              Home(Opportunities: Opportunities, width: width, height: height),
           //Navigation Drawer
-          endDrawer: Drawer(
-              backgroundColor: Colors.black,
-              width: width * 0.6,
-              child: ListView(
-                children: const [
-                  ListTile(
-                    leading: Icon(Icons.menu, color: Colors.white, size: 42),
-                    title: Text('Menu',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 42,
-                            fontWeight: FontWeight.w800)),
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.calendar_month, color: Colors.white),
-                    title: Text('Events',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700)),
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.book, color: Colors.white),
-                    title: Text('Publications',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700)),
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.link, color: Colors.white),
-                    title: Text('Links',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700)),
-                  ),
-                  ListTile(
-                    leading: Icon(
-                      Icons.people,
-                      color: Colors.white,
-                    ),
-                    title: Text('FacAds',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700)),
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.phone_outlined, color: Colors.white),
-                    title: Text('Contact Us',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700)),
-                  ),
-                ],
-              )),
+          endDrawer: buildDrawer(width: width),
         ));
   }
 }
 
-Container opportunities(List<Map<String, String>> Opportunities) {
-  return Container(
-    color: Color(defaultBackground),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 20.0),
-          child: Text('Your Opportunities',
-              style: GoogleFonts.nunitoSans(
-                fontSize: 32,
-                fontWeight: FontWeight.w700,
-                color: Color(0xffffffff),
-              )),
-        ),
-        SizedBox(
-          height: 185,
-          width: double.infinity,
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: Opportunities.length,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: _opportunities(Opportunities[index]),
-              );
-            },
-          ),
-        ),
-      ],
-    ),
-  );
-}
+class buildDrawer extends StatelessWidget {
+  const buildDrawer({
+    super.key,
+    required this.width,
+  });
 
-Widget _opportunities(Map<String, String> Opportunity) {
-  return Container(
-    width: 225,
-    decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(40), color: Color(0xff201F1F)),
-    child: Column(
-      children: [
-        SizedBox(
-          width: 225,
-          child: Padding(
-            padding: const EdgeInsets.only(
-                left: 20.0, right: 8.0, top: 15.0, bottom: 0.0),
-            child: Text(
-              Opportunity['title'] ?? 'Not Defined',
-              // style: TextStyle(
+  final double width;
 
-              //     color: Colors.grey[400],
-              //     fontSize: 20,
-              //     fontWeight: FontWeight.w800,
-              //     fontStyle: FontStyle.italic),
-              style: GoogleFonts.montserrat(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 20,
-                  color: Color(0xff666161)),
-              textAlign: TextAlign.left,
-            ),
-          ),
-        ),
-        Container(
-          width: 225,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 20.0),
-            child: Text(
-              Opportunity['provider'] ?? 'Not Defined',
-              style: GoogleFonts.montserrat(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 14,
-                  fontStyle: FontStyle.italic,
-                  color: Color(0xffffffff)),
-              textAlign: TextAlign.left,
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 20.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+        width: width * 0.75,
+        child: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+            colors: const [
+              Color(0xff201f1f),
+              Color(0xff000000),
+              Color(0xff4c4949)
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          )),
+          child: ListView(
             children: [
-              Icon(
-                Icons.watch_later_outlined,
-                color: Colors.white,
-                size: 20,
+              Padding(
+                padding: const EdgeInsets.only(left: 10, top: 40, bottom: 35),
+                child: ListTile(
+                  leading: SvgPicture.asset(
+                    'assets/icons/Hamburger_LG.svg',
+                    height: 40,
+                    colorFilter:
+                        ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                  ),
+                  title: Text('Menu',
+                      style: GoogleFonts.nunitoSans(
+                        fontSize: 32,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                      )),
+                ),
               ),
-              SizedBox(
-                width: 5,
+              Padding(
+                padding: const EdgeInsets.only(left: 15.0),
+                child: ListTile(
+                  leading: SvgPicture.asset(
+                    'assets/icons/calender.svg',
+                    height: 24,
+                    colorFilter:
+                        ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                  ),
+                  title: Text('Events',
+                      style: GoogleFonts.montserrat(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.white)),
+                ),
               ),
-              Text(
-                Opportunity['timePosted'] ?? 'Not Defined',
-                style: GoogleFonts.montserrat(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 14,
-                    fontStyle: FontStyle.italic,
-                    color: Color(0xffffffff)),
-              )
+              Padding(
+                padding: const EdgeInsets.only(left: 15.0),
+                child: ListTile(
+                  leading: SvgPicture.asset(
+                    'assets/icons/Book.svg',
+                    height: 24,
+                    colorFilter:
+                        ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                  ),
+                  title: Text('Publications',
+                      style: GoogleFonts.montserrat(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.white)),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15.0),
+                child: ListTile(
+                  leading: SvgPicture.asset(
+                    'assets/icons/Vector.svg',
+                    height: 24,
+                    colorFilter:
+                        ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                  ),
+                  title: Text('Links',
+                      style: GoogleFonts.montserrat(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.white)),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15.0),
+                child: ListTile(
+                  leading: SvgPicture.asset(
+                    'assets/icons/Users_Group.svg',
+                    height: 24,
+                    colorFilter:
+                        ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                  ),
+                  title: Text('FacAds',
+                      style: GoogleFonts.montserrat(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.white)),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15.0),
+                child: ListTile(
+                  leading: SvgPicture.asset(
+                    'assets/icons/Phone.svg',
+                    height: 24,
+                    colorFilter:
+                        ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                  ),
+                  title: Text('Contact Us',
+                      style: GoogleFonts.montserrat(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.white)),
+                ),
+              ),
             ],
           ),
-        ),
-        SizedBox(height: 20),
-        Container(
-            width: 225,
-            height: 50,
-            decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(40),
-                    bottomRight: Radius.circular(40)),
-                color: Color(0xff403c3c)),
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 5),
-                child: Text('CHECK STATUS',
-                    style: GoogleFonts.montserrat(
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xffb3a9a9),
-                      fontSize: 14,
-                    )),
-              ),
-            ))
-      ],
-    ),
-  );
+        ));
+  }
 }
