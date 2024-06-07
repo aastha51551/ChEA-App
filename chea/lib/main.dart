@@ -1,19 +1,22 @@
-// ignore_for_file: prefer_const_constructors, sort_child_properties_last
+// ignore_for_file: prefer_const_constructors, sort_child_properties_last, camel_case_types
 
 import 'package:chea/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-int defaultBackground = 0xff08050c;
-
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -33,43 +36,103 @@ class MyApp extends StatelessWidget {
     ];
     return MaterialApp(
         debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+            bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                backgroundColor: Color(defaultBackground))),
         title: 'ChEA',
         home: Scaffold(
-          backgroundColor: Color(defaultBackground),
-          appBar: AppBar(
-            toolbarHeight: 100,
             backgroundColor: Color(defaultBackground),
-            elevation: 0,
-            centerTitle: false,
-            automaticallyImplyLeading: false,
-            actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: 15.0, top: 20),
-                child: Builder(builder: (context) {
-                  return IconButton(
-                      onPressed: () {
-                        Scaffold.of(context).openEndDrawer();
-                      },
-                      icon: SvgPicture.asset(
-                        'assets/icons/Hamburger_LG.svg',
-                        height: 40,
+            appBar: AppBar(
+              toolbarHeight: 100,
+              backgroundColor: Color(defaultBackground),
+              elevation: 0,
+              centerTitle: false,
+              automaticallyImplyLeading: false,
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 15.0, top: 20),
+                  child: Builder(builder: (context) {
+                    return IconButton(
+                        onPressed: () {
+                          Scaffold.of(context).openEndDrawer();
+                        },
+                        icon: SvgPicture.asset(
+                          'assets/icons/Hamburger_LG.svg',
+                          height: 40,
+                          colorFilter:
+                              ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                        ));
+                  }),
+                ),
+              ],
+              title: Image.asset(
+                'assets/icons/logo.png',
+                height: 90,
+                alignment: Alignment.centerLeft,
+              ),
+            ),
+            body: Home(
+                Opportunities: Opportunities, width: width, height: height),
+            //Navigation Drawer
+            endDrawer: buildDrawer(width: width),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerDocked,
+            floatingActionButton: FloatingActionButton(
+                onPressed: () {},
+                backgroundColor: Color(0xffff7811),
+                shape: ShapeBorder.lerp(
+                    RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50)),
+                    RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50)),
+                    0.5),
+                child: Center(
+                  child: SizedBox(
+                    height: 50,
+                    width: double.infinity,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: SvgPicture.asset(
+                        'assets/icons/ai.svg',
                         colorFilter:
                             ColorFilter.mode(Colors.white, BlendMode.srcIn),
-                      ));
-                }),
-              ),
-            ],
-            title: Image.asset(
-              'assets/icons/logo.png',
-              height: 90,
-              alignment: Alignment.centerLeft,
-            ),
-          ),
-          body:
-              Home(Opportunities: Opportunities, width: width, height: height),
-          //Navigation Drawer
-          endDrawer: buildDrawer(width: width),
-        ));
+                      ),
+                    ),
+                  ),
+                )),
+            bottomNavigationBar: BottomAppBar(
+                color: Color(0xff201f1f),
+                height: 67,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: IconButton(
+                        icon: SvgPicture.asset(
+                          'assets/icons/house.svg',
+                        ),
+                        onPressed: () {},
+                      ),
+                    ),
+                    Expanded(
+                      child: IconButton(
+                        icon: SvgPicture.asset('assets/icons/document.svg'),
+                        onPressed: () {},
+                      ),
+                    ),
+                    Expanded(
+                      child: IconButton(
+                        icon: SvgPicture.asset('assets/icons/briefcase.svg'),
+                        onPressed: () {},
+                      ),
+                    ),
+                    Expanded(
+                      child: IconButton(
+                        icon: SvgPicture.asset('assets/icons/user.svg'),
+                        onPressed: () {},
+                      ),
+                    ),
+                  ],
+                ))));
   }
 }
 

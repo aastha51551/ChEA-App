@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 
@@ -98,7 +100,7 @@ Container opportunities(List<Map<String, String>> Opportunities) {
               style: GoogleFonts.nunitoSans(
                 fontSize: 32,
                 fontWeight: FontWeight.w700,
-                color: Color(0xffffffff),
+                color: const Color(0xffffffff),
               )),
         ),
         SizedBox(
@@ -125,7 +127,8 @@ Widget _opportunities(Map<String, String> Opportunity) {
   return Container(
     width: 225,
     decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(40), color: Color(0xff201F1F)),
+        borderRadius: BorderRadius.circular(40),
+        color: const Color(0xff201F1F)),
     child: Column(
       children: [
         SizedBox(
@@ -144,12 +147,12 @@ Widget _opportunities(Map<String, String> Opportunity) {
               style: GoogleFonts.montserrat(
                   fontWeight: FontWeight.w700,
                   fontSize: 20,
-                  color: Color(0xff666161)),
+                  color: const Color(0xff666161)),
               textAlign: TextAlign.left,
             ),
           ),
         ),
-        Container(
+        SizedBox(
           width: 225,
           child: Padding(
             padding: const EdgeInsets.only(left: 20.0),
@@ -159,7 +162,7 @@ Widget _opportunities(Map<String, String> Opportunity) {
                   fontWeight: FontWeight.w600,
                   fontSize: 14,
                   fontStyle: FontStyle.italic,
-                  color: Color(0xffffffff)),
+                  color: const Color(0xffffffff)),
               textAlign: TextAlign.left,
             ),
           ),
@@ -193,7 +196,7 @@ Widget _opportunities(Map<String, String> Opportunity) {
             width: 225,
             height: 50,
             decoration: const BoxDecoration(
-                borderRadius: const BorderRadius.only(
+                borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(40),
                     bottomRight: Radius.circular(40)),
                 color: Color(0xff403c3c)),
