@@ -102,7 +102,8 @@ class _MyAppState extends State<MyApp> {
                 )),
             bottomNavigationBar: BottomAppBar(
                 color: Color(0xff201f1f),
-                height: 67,
+                height: 57,
+                padding: EdgeInsets.all(0),
                 child: Row(
                   children: [
                     Expanded(
@@ -114,20 +115,30 @@ class _MyAppState extends State<MyApp> {
                       ),
                     ),
                     Expanded(
-                      child: IconButton(
-                        icon: SvgPicture.asset('assets/icons/document.svg'),
-                        onPressed: () {},
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: IconButton(
+                          icon: SvgPicture.asset('assets/icons/document.svg'),
+                          onPressed: () {},
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20),
+                        child: IconButton(
+                          icon: SvgPicture.asset(
+                            'assets/icons/briefcase.svg',
+                          ),
+                          onPressed: () {},
+                        ),
                       ),
                     ),
                     Expanded(
                       child: IconButton(
-                        icon: SvgPicture.asset('assets/icons/briefcase.svg'),
-                        onPressed: () {},
-                      ),
-                    ),
-                    Expanded(
-                      child: IconButton(
-                        icon: SvgPicture.asset('assets/icons/user.svg'),
+                        icon: SvgPicture.asset(
+                          'assets/icons/user.svg',
+                        ),
                         onPressed: () {},
                       ),
                     ),
