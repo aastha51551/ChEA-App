@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, sort_child_properties_last
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
@@ -9,80 +9,81 @@ class Home extends StatelessWidget {
   const Home({
     super.key,
     required this.Opportunities,
-    required this.width,
-    required this.height,
   });
 
   final List<Map<String, String>> Opportunities;
-  final double width;
-  final double height;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        opportunities(Opportunities),
-        //Opportunitites Section
-        //What's Happening Section
-        Container(
-            width: width,
-            color: Color(defaultBackground),
-            child: const Column(children: [
-              Padding(
-                padding: EdgeInsets.all(15.0),
-                child: Text(
-                  "WHAT'S HAPPENING",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 28,
-                      fontWeight: FontWeight.w700),
+    return Scaffold(
+      body: Container(
+        color: Color(defaultBackground),
+        child: Column(
+          children: [
+            opportunities(Opportunities),
+            //Opportunitites Section
+            //What's Happening Section
+            Container(
+                width: double.infinity,
+                color: Color(defaultBackground),
+                child: const Column(children: [
+                  Padding(
+                    padding: EdgeInsets.all(15.0),
+                    child: Text(
+                      "What's Happening",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 28,
+                          fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                ])),
+            Expanded(
+              child: Container(
+                color: Color(defaultBackground),
+                height: 200,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Padding(
+                          padding: const EdgeInsets.only(
+                              left: 8.0, right: 8, bottom: 8),
+                          child: Container(
+                              height: 250,
+                              child: const Center(
+                                  child: Text(
+                                'Trad Day',
+                                style: TextStyle(
+                                  fontSize: 32,
+                                ),
+                              )),
+                              margin: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Colors.grey[500]))),
+                      Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                              height: 250,
+                              child: const Center(
+                                  child: Text(
+                                'Dept Trip',
+                                style: TextStyle(
+                                  fontSize: 32,
+                                ),
+                              )),
+                              margin: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Colors.grey[500])))
+                    ],
+                  ),
                 ),
               ),
-              SizedBox(
-                height: 20,
-              )
-            ])),
-        Container(
-          color: Color(defaultBackground),
-          height: height * 0.3,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                        height: 250,
-                        child: Center(
-                            child: Text(
-                          'Trad Day',
-                          style: TextStyle(
-                            fontSize: 32,
-                          ),
-                        )),
-                        margin: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.grey[500]))),
-                Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                        height: 250,
-                        child: Center(
-                            child: Text(
-                          'Dept Trip',
-                          style: TextStyle(
-                            fontSize: 32,
-                          ),
-                        )),
-                        margin: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.grey[500])))
-              ],
             ),
-          ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }
