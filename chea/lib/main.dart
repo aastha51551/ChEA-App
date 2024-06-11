@@ -1,11 +1,15 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last, camel_case_types
 
+import 'package:chea/pages/Opportunities.dart';
+import 'package:chea/pages/blogs.dart';
+import 'package:chea/pages/cheagpt.dart';
+import 'package:chea/pages/events.dart';
 import 'package:chea/pages/home.dart';
-import 'package:chea/utils/appbar.dart';
-import 'package:chea/utils/bottom_navbar.dart';
+import 'package:chea/pages/proflie.dart';
 import 'package:chea/utils/side_navbar.dart';
 import 'package:flutter/material.dart';
 
+int defaultBackground = 0xff08050c;
 void main() {
   runApp(const MyApp());
 }
@@ -23,13 +27,20 @@ class _MyAppState extends State<MyApp> {
     double width = MediaQuery.of(context).size.width;
 
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'ChEA',
-        home: Scaffold(
-            backgroundColor: Color(defaultBackground),
-            appBar: appbar(),
-            body: MyNavigationBar(),
-            //Navigation Drawer
-            endDrawer: buildDrawer(width: width)));
+      debugShowCheckedModeBanner: false,
+      title: 'ChEA',
+      home: Scaffold(
+          backgroundColor: Color(defaultBackground),
+          body: Home(),
+          endDrawer: buildDrawer(width: width)),
+      routes: {
+        '/home': (context) => const Home(),
+        '/events': (context) => const Events(),
+        '/blog': (context) => const Blog(),
+        '/profile': (context) => const Profile(),
+        '/opportunities': (context) => const Opportunities(),
+        '/ai': (context) => const ChEAGPT()
+      },
+    );
   }
 }
