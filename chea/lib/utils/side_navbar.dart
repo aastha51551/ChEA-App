@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -38,6 +40,7 @@ class buildDrawer extends StatelessWidget {
                         fontWeight: FontWeight.w700,
                         color: Colors.white,
                       )),
+                  onTap: () => Navigator.of(context).pop(),
                 ),
               ),
               Padding(
@@ -54,6 +57,7 @@ class buildDrawer extends StatelessWidget {
                           fontSize: 20,
                           fontWeight: FontWeight.w400,
                           color: Colors.white)),
+                  onTap: () => Navigator.of(context).pushNamed('/events'),
                 ),
               ),
               Padding(

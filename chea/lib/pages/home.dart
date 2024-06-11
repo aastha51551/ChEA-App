@@ -1,5 +1,9 @@
-// ignore_for_file: non_constant_identifier_names, sort_child_properties_last
+// ignore_for_file: non_constant_identifier_names, sort_child_properties_last, curly_braces_in_flow_control_structures
 
+import 'package:chea/utils/appbar.dart';
+import 'package:chea/utils/bottom_navbar.dart';
+import 'package:chea/utils/side_navbar.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 
@@ -8,20 +12,53 @@ int defaultBackground = 0xff08050c;
 class Home extends StatelessWidget {
   const Home({
     super.key,
-    required this.Opportunities,
   });
-
-  final List<Map<String, String>> Opportunities;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(defaultBackground),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.pushNamed(context, '/ai');
+          },
+          backgroundColor: const Color(0xffff7811),
+          shape: ShapeBorder.lerp(
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+              0.5),
+          child: Center(
+            child: SizedBox(
+              height: 50,
+              width: double.infinity,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: SvgPicture.asset(
+                  'assets/icons/ai.svg',
+                  colorFilter:
+                      const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                ),
+              ),
+            ),
+          )),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: MyNavigationBar(
+        selectedIndex: 0,
+        onItemTapped: (int index) {
+          if (index == 1)
+            Navigator.pushNamed(context, '/blog');
+          else if (index == 2)
+            Navigator.pushNamed(context, '/opportunities');
+          else if (index == 3) Navigator.pushNamed(context, '/profile');
+        },
+      ),
+      appBar: appbar(),
       body: Container(
         color: Color(defaultBackground),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              opportunities(Opportunities),
+              opportunities(),
               //Opportunitites Section
               //What's Happening Section
               Container(
@@ -83,11 +120,27 @@ class Home extends StatelessWidget {
           ),
         ),
       ),
+      endDrawer: buildDrawer(
+        width: MediaQuery.of(context).size.width,
+      ),
     );
   }
 }
 
-Container opportunities(List<Map<String, String>> Opportunities) {
+Container opportunities() {
+  List<Map<String, String>> Opportunities = [
+    {
+      'title': 'Internship',
+      'provider': 'BASF, GER',
+      'timePosted': '2 days ago'
+    },
+    {
+      'title': 'Project',
+      'provider': 'Prof. Rochish',
+      'timePosted': '5 days ago'
+    },
+    {'title': 'Internship', 'provider': 'Shell', 'timePosted': '1 week ago'}
+  ];
   return Container(
     color: Color(defaultBackground),
     child: Column(
