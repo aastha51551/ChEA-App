@@ -22,7 +22,7 @@ AppBar appbar() {
                         'assets/icons/Hamburger_LG.svg',
                         height: 40,
                         colorFilter:
-                            ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                            const ColorFilter.mode(Colors.white, BlendMode.srcIn),
                       ));
                 }),
               ),

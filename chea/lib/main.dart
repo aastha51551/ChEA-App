@@ -24,7 +24,6 @@ class _MyAppState extends State<MyApp> {
 
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(canvasColor: Color(0xff1a1818)),
         title: 'ChEA',
         home: Scaffold(
             backgroundColor: Color(defaultBackground),
@@ -32,9 +31,5 @@ class _MyAppState extends State<MyApp> {
             body: MyNavigationBar(),
             //Navigation Drawer
             endDrawer: buildDrawer(width: width)));
-    // floatingActionButtonLocation:
-    //     FloatingActionButtonLocation.centerDocked,
-    // floatingActionButton: ChEA_GPT(),
-    // bottomNavigationBar: navbar()));
   }
 }

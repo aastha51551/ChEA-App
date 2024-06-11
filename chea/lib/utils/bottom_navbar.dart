@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, use_key_in_widget_constructors
+
 import 'package:chea/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -82,9 +84,9 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
         ],
       ),
       bottomNavigationBar: BottomAppBar(
-          color: Color(0xff1a1818),
-          height: 50,
-          padding: EdgeInsets.all(2),
+          color: const Color(0xff1a1818),
+          height: 67,
+          padding: const EdgeInsets.all(2),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             mainAxisSize: MainAxisSize.max,
@@ -93,7 +95,9 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
                 icon: SvgPicture.asset(
                   'assets/icons/house.svg',
                   colorFilter: ColorFilter.mode(
-                    _selectedIndex == 0 ? Colors.white : Color(0xff666161),
+                    _selectedIndex == 0
+                        ? Colors.white
+                        : const Color(0xff666161),
                     BlendMode.srcIn,
                   ),
                 ),
@@ -103,21 +107,25 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
                 icon: SvgPicture.asset(
                   'assets/icons/document.svg',
                   colorFilter: ColorFilter.mode(
-                    _selectedIndex == 1 ? Colors.white : Color(0xff666161),
+                    _selectedIndex == 1
+                        ? Colors.white
+                        : const Color(0xff666161),
                     BlendMode.srcIn,
                   ),
                 ),
                 onPressed: () => _onItemTapped(1),
               ),
-              SizedBox(width: 10, height: 0),
+              const SizedBox(width: 10, height: 0),
               IconButton(
                 icon: SvgPicture.asset(
                   'assets/icons/briefcase.svg',
                   colorFilter: ColorFilter.mode(
-                    _selectedIndex == 3 ? Colors.white : Color(0xff666161),
+                    _selectedIndex == 3
+                        ? Colors.white
+                        : const Color(0xff666161),
                     BlendMode.srcIn,
                   ),
-                  height: 25,
+                  height: 30,
                 ),
                 onPressed: () => _onItemTapped(3),
               ),
@@ -125,7 +133,9 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
                 icon: SvgPicture.asset(
                   'assets/icons/user.svg',
                   colorFilter: ColorFilter.mode(
-                    _selectedIndex == 4 ? Colors.white : Color(0xff666161),
+                    _selectedIndex == 4
+                        ? Colors.white
+                        : const Color(0xff666161),
                     BlendMode.srcIn,
                   ),
                 ),

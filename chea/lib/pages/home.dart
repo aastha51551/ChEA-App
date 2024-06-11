@@ -18,31 +18,30 @@ class Home extends StatelessWidget {
     return Scaffold(
       body: Container(
         color: Color(defaultBackground),
-        child: Column(
-          children: [
-            opportunities(Opportunities),
-            //Opportunitites Section
-            //What's Happening Section
-            Container(
-                width: double.infinity,
-                color: Color(defaultBackground),
-                child: const Column(children: [
-                  Padding(
-                    padding: EdgeInsets.all(15.0),
-                    child: Text(
-                      "What's Happening",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 28,
-                          fontWeight: FontWeight.w700),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              opportunities(Opportunities),
+              //Opportunitites Section
+              //What's Happening Section
+              Container(
+                  width: double.infinity,
+                  color: Color(defaultBackground),
+                  child: const Column(children: [
+                    Padding(
+                      padding: EdgeInsets.all(15.0),
+                      child: Text(
+                        "What's Happening",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 28,
+                            fontWeight: FontWeight.w700),
+                      ),
                     ),
-                  ),
-                ])),
-            Expanded(
-              child: Container(
+                  ])),
+              Container(
                 color: Color(defaultBackground),
-                height: 200,
-                child: SingleChildScrollView(
+                child: Flexible(
                   child: Column(
                     children: [
                       Padding(
@@ -80,8 +79,8 @@ class Home extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -192,10 +191,10 @@ Widget _opportunities(Map<String, String> Opportunity) {
             ],
           ),
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 30),
         Container(
             width: 225,
-            height: 50,
+            height: 40,
             decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(40),
