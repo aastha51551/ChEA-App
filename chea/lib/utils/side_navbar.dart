@@ -57,7 +57,8 @@ class buildDrawer extends StatelessWidget {
                           fontSize: 20,
                           fontWeight: FontWeight.w400,
                           color: Colors.white)),
-                  onTap: () => Navigator.of(context).pushNamed('/events'),
+                  onTap: () => Navigator.of(context)
+                      .pushNamedAndRemoveUntil('/events', (route) => false),
                 ),
               ),
               Padding(
