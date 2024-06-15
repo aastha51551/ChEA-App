@@ -1,9 +1,10 @@
 // ignore_for_file: non_constant_identifier_names, sort_child_properties_last, curly_braces_in_flow_control_structures
 
-import 'package:chea/utils/appbar.dart';
+// import 'package:chea/utils/appbar.dart';
 import 'package:chea/utils/bottom_navbar.dart';
+import 'package:chea/utils/cheagpt.dart';
 import 'package:chea/utils/side_navbar.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 
@@ -17,107 +18,86 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: false,
       backgroundColor: Color(defaultBackground),
-      floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/ai');
-          },
-          backgroundColor: const Color(0xffff7811),
-          shape: ShapeBorder.lerp(
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-              0.5),
-          child: Center(
-            child: SizedBox(
-              height: 50,
-              width: double.infinity,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: SvgPicture.asset(
-                  'assets/icons/ai.svg',
-                  colorFilter:
-                      const ColorFilter.mode(Colors.white, BlendMode.srcIn),
-                ),
-              ),
-            ),
-          )),
+      floatingActionButton: ChEAGPT(context),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: MyNavigationBar(
         selectedIndex: 0,
         onItemTapped: (int index) {
           if (index == 1)
-            Navigator.pushNamed(context, '/blog');
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/blog', (route) => false);
           else if (index == 2)
-            Navigator.pushNamed(context, '/opportunities');
-          else if (index == 3) Navigator.pushNamed(context, '/profile');
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/opportunities', (route) => false);
+          else if (index == 3)
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/profile', (route) => false);
         },
       ),
       appBar: appbar(),
       body: Container(
         color: Color(defaultBackground),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              opportunities(),
-              //Opportunitites Section
-              //What's Happening Section
-              Container(
-                  width: double.infinity,
-                  color: Color(defaultBackground),
-                  child: const Column(children: [
-                    Padding(
-                      padding: EdgeInsets.all(15.0),
-                      child: Text(
-                        "What's Happening",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 28,
-                            fontWeight: FontWeight.w700),
-                      ),
-                    ),
-                  ])),
-              Container(
+        child: ListView(
+          children: [
+            opportunities(),
+            //Opportunitites Section
+            //What's Happening Section
+            Container(
+                width: double.infinity,
                 color: Color(defaultBackground),
-                child: Flexible(
-                  child: Column(
-                    children: [
-                      Padding(
-                          padding: const EdgeInsets.only(
-                              left: 8.0, right: 8, bottom: 8),
-                          child: Container(
-                              height: 250,
-                              child: const Center(
-                                  child: Text(
-                                'Trad Day',
-                                style: TextStyle(
-                                  fontSize: 32,
-                                ),
-                              )),
-                              margin: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Colors.grey[500]))),
-                      Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                              height: 250,
-                              child: const Center(
-                                  child: Text(
-                                'Dept Trip',
-                                style: TextStyle(
-                                  fontSize: 32,
-                                ),
-                              )),
-                              margin: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Colors.grey[500])))
-                    ],
+                child: const Column(children: [
+                  Padding(
+                    padding: EdgeInsets.all(15.0),
+                    child: Text(
+                      "What's Happening",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 28,
+                          fontWeight: FontWeight.w700),
+                    ),
                   ),
-                ),
+                ])),
+            Container(
+              color: Color(defaultBackground),
+              child: Column(
+                children: [
+                  Padding(
+                      padding:
+                          const EdgeInsets.only(left: 8.0, right: 8, bottom: 8),
+                      child: Container(
+                          height: 250,
+                          child: const Center(
+                              child: Text(
+                            'Trad Day',
+                            style: TextStyle(
+                              fontSize: 32,
+                            ),
+                          )),
+                          margin: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.grey[500]))),
+                  Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                          height: 250,
+                          child: const Center(
+                              child: Text(
+                            'Dept Trip',
+                            style: TextStyle(
+                              fontSize: 32,
+                            ),
+                          )),
+                          margin: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.grey[500])))
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
       endDrawer: buildDrawer(
@@ -156,7 +136,7 @@ Container opportunities() {
                 color: const Color(0xffffffff),
               )),
         ),
-        SizedBox(
+        Container(
           height: 185,
           width: double.infinity,
           child: ListView.builder(
@@ -265,6 +245,38 @@ Widget _opportunities(Map<String, String> Opportunity) {
               ),
             ))
       ],
+    ),
+  );
+}
+
+AppBar appbar() {
+  return AppBar(
+    toolbarHeight: 100,
+    backgroundColor: Color(defaultBackground),
+    elevation: 0,
+    centerTitle: false,
+    automaticallyImplyLeading: false,
+    actions: [
+      Padding(
+        padding: const EdgeInsets.only(right: 15.0, top: 20),
+        child: Builder(builder: (context) {
+          return IconButton(
+              onPressed: () {
+                Scaffold.of(context).openEndDrawer();
+              },
+              icon: SvgPicture.asset(
+                'assets/icons/Hamburger_LG.svg',
+                height: 40,
+                // colorFilter:
+                //     const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+              ));
+        }),
+      ),
+    ],
+    title: Image.asset(
+      'assets/icons/logo.png',
+      height: 90,
+      alignment: Alignment.centerLeft,
     ),
   );
 }

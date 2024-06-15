@@ -6,7 +6,7 @@ import 'package:chea/pages/cheagpt.dart';
 import 'package:chea/pages/events.dart';
 import 'package:chea/pages/home.dart';
 import 'package:chea/pages/proflie.dart';
-import 'package:chea/utils/side_navbar.dart';
+// import 'package:chea/utils/side_navbar.dart';
 import 'package:flutter/material.dart';
 
 int defaultBackground = 0xff08050c;
@@ -24,15 +24,12 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
+    // double width = MediaQuery.of(context).size.width;
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'ChEA',
-      home: Scaffold(
-          backgroundColor: Color(defaultBackground),
-          body: Home(),
-          endDrawer: buildDrawer(width: width)),
+      home: Home(),
       routes: {
         '/home': (context) => const Home(),
         '/events': (context) => const Events(),
