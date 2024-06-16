@@ -136,7 +136,7 @@ Container opportunities() {
                 color: const Color(0xffffffff),
               )),
         ),
-        Container(
+        SizedBox(
           height: 185,
           width: double.infinity,
           child: ListView.builder(
