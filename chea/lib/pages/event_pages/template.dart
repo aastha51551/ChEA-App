@@ -6,6 +6,7 @@ import 'package:chea/utils/side_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 int defaultBackground = 0xff05090d;
 
 class TabData {
@@ -58,7 +59,7 @@ class _CustomTabViewState extends State<CustomTabView>
         title: Padding(
           padding: const EdgeInsets.only(top: 15.0),
           child: Text(
-            'Time Capsule',
+            widget.pageTitle,
             style: GoogleFonts.nunitoSans(
                 color: Colors.white, fontSize: 28, fontWeight: FontWeight.w700),
           ),

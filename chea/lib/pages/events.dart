@@ -233,9 +233,9 @@ class EventGrid extends StatelessWidget {
                                   context, '/timecapsule', (route) => false);
                               break;
 
-                            // case 1:
-                            //   Navigator.pushNamed(context, '/valfi');
-                            //   break;
+                            case 1:
+                              Navigator.pushNamed(context, '/valfi');
+                              break;
                             // case 2:
                             //   Navigator.pushNamed(context, '/freshieorientation');
                             //   break;
