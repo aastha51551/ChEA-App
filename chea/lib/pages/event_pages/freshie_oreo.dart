@@ -1,12 +1,13 @@
 import 'package:chea/pages/event_pages/template.dart';
 import 'package:flutter/material.dart';
 
-class Valfi extends StatefulWidget {
+class FreshieOrientation extends StatefulWidget {
   @override
-  _ValfiState createState() => _ValfiState();
+  _FreshieOrientationState createState() => _FreshieOrientationState();
 }
 
-class _ValfiState extends State<Valfi> with SingleTickerProviderStateMixin {
+class _FreshieOrientationState extends State<FreshieOrientation>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -24,7 +25,7 @@ class _ValfiState extends State<Valfi> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomTabView(pageTitle: 'Valfi', tabs: [
+      body: CustomTabView(pageTitle: 'Freshie Orientation', tabs: [
         TabData(
           title: '2023',
           content: Container(
@@ -38,7 +39,19 @@ class _ValfiState extends State<Valfi> with SingleTickerProviderStateMixin {
           ),
         ),
         TabData(
+          title: '2019',
+          content: Container(
+            color: Color(defaultBackground),
+          ),
+        ),
+        TabData(
           title: '2018',
+          content: Container(
+            color: Color(defaultBackground),
+          ),
+        ),
+        TabData(
+          title: '2017',
           content: Container(
             color: Color(defaultBackground),
           ),

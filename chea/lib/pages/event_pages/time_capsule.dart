@@ -27,13 +27,13 @@ class _TimeCapsuleState extends State<TimeCapsule>
     return Scaffold(
       body: CustomTabView(pageTitle: 'Time Capsule', tabs: [
         TabData(
-          title: '2020-2021',
+          title: '2021',
           content: Container(
             color: Color(defaultBackground),
           ),
         ),
         TabData(
-          title: '2021-2022',
+          title: '2022',
           content: Container(
             color: Color(defaultBackground),
           ),

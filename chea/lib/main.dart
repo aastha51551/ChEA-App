@@ -3,6 +3,7 @@
 import 'package:chea/pages/Opportunities.dart';
 import 'package:chea/pages/blogs.dart';
 import 'package:chea/pages/cheagpt.dart';
+import 'package:chea/pages/event_pages/freshie_oreo.dart';
 import 'package:chea/pages/event_pages/time_capsule.dart';
 import 'package:chea/pages/event_pages/valfi.dart';
 import 'package:chea/pages/events.dart';
@@ -41,6 +42,7 @@ class _MyAppState extends State<MyApp> {
         '/ai': (context) => const ChEAGPT(),
         '/timecapsule': (context) => TimeCapsule(),
         '/valfi': (context) => Valfi(),
+        '/freshieorientation': (context) => FreshieOrientation(),
       },
     );
   }
