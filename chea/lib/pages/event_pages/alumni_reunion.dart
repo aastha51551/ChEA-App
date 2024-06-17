@@ -1,12 +1,12 @@
 import 'package:chea/pages/event_pages/template.dart';
 import 'package:flutter/material.dart';
 
-class TimeCapsule extends StatefulWidget {
+class AlumniReunion extends StatefulWidget {
   @override
-  _TimeCapsuleState createState() => _TimeCapsuleState();
+  _AlumniReunionState createState() => _AlumniReunionState();
 }
 
-class _TimeCapsuleState extends State<TimeCapsule>
+class _AlumniReunionState extends State<AlumniReunion>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
@@ -25,22 +25,20 @@ class _TimeCapsuleState extends State<TimeCapsule>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      body: CustomTabView(
-        // icon: 'assets/images/1.png',
-        pageTitle: 'Time Capsule', tabs: [
+      body: CustomTabView(pageTitle: 'Alumni Reunion', tabs: [
         TabData(
-          title: '2022',
+          title: '2022 - 2023',
           content: Container(
             color: Color(defaultBackground),
           ),
         ),
         TabData(
-          title: '2021',
+          title: '2021 - 2022',
           content: Container(
             color: Color(defaultBackground),
           ),
         ),
+        
       ]),
     );
   }

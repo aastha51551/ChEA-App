@@ -24,7 +24,9 @@ class _ValfiState extends State<Valfi> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomTabView(pageTitle: 'Valfi', tabs: [
+      body: CustomTabView(
+        // icon: 'assets/images/2.png',
+        pageTitle: 'Valfi', tabs: [
         TabData(
           title: '2023',
           content: Container(

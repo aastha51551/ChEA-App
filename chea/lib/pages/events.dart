@@ -232,41 +232,50 @@ class EventGrid extends StatelessWidget {
                               Navigator.pushNamedAndRemoveUntil(
                                   context, '/timecapsule', (route) => false);
                               break;
-
                             case 1:
-                              Navigator.pushNamed(context, '/valfi');
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context, '/valfi', (route) => false);
                               break;
                             case 2:
-                              Navigator.pushNamed(context, '/freshieorientation');
+                              Navigator.pushNamedAndRemoveUntil(context,
+                                  '/freshieorientation', (route) => false);
                               break;
-                            // case 3:
-                            //   Navigator.pushNamed(context, '/knowyourprofs');
-                            //   break;
-                            // case 4:
-                            //   Navigator.pushNamed(context, '/traditionalday');
-                            //   break;
-                            // case 5:
-                            //   Navigator.pushNamed(context, '/coretalks');
-                            //   break;
-                            // case 6:
-                            //   Navigator.pushNamed(context, '/departmenttrips');
-                            //   break;
-                            // case 7:
-                            //   Navigator.pushNamed(context, '/sportevents');
-                            //   break;
-                            // case 8:
-                            //   Navigator.pushNamed(context, '/paneldiscussions');
-                            //   break;
-                            // case 9:
-                            //   Navigator.pushNamed(context, '/alumnireunion');
-                            //   break;
-                            // case 10:
-                            //   Navigator.pushNamed(context, '/convocation');
-                            //   break;
-                            // case 11:
-                            //   Navigator.pushNamed(context, '/miscellaneousevents');
-                            //   break;
-                            // print('Event $index');
+                            case 3:
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context, '/knowyourprofs', (route) => false);
+                              break;
+                            case 4:
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context, '/traditionalday', (route) => false);
+                              break;
+                            case 5:
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context, '/coretalks', (route) => false);
+                              break;
+                            case 6:
+                              Navigator.pushNamedAndRemoveUntil(context,
+                                  '/departmenttrips', (route) => false);
+                              break;
+                            case 7:
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context, '/sportevents', (route) => false);
+                              break;
+                            case 8:
+                              Navigator.pushNamedAndRemoveUntil(context,
+                                  '/paneldiscussions', (route) => false);
+                              break;
+                            case 9:
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context, '/alumnireunion', (route) => false);
+                              break;
+                            case 10:
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context, '/convocation', (route) => false);
+                              break;
+                            case 11:
+                              Navigator.pushNamedAndRemoveUntil(context,
+                                  '/miscellaneousevents', (route) => false);
+                              break;
                           }
                         },
                         child: ClipRRect(
