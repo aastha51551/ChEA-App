@@ -200,12 +200,12 @@ class EventGrid extends StatelessWidget {
     // Calculate the height of each item
     double itemHeight = maxCrossAxisExtent / childAspectRatio;
     double gridHeight = (itemHeight * rows) + (mainAxisSpacing * (rows - 1));
-    return Container(
-      height: gridHeight,
+    return SizedBox(
+      height: gridHeight - 200,
       child: GridView.builder(
           itemCount: events.length,
-          // shrinkWrap: true,
-          // physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
               maxCrossAxisExtent: 250,
               crossAxisSpacing: 10,
@@ -226,8 +226,48 @@ class EventGrid extends StatelessWidget {
                           border: Border.all(
                               color: const Color(0xffc25923), width: 2)),
                       child: GestureDetector(
-                        onTap: (){
-                          print('Event $index Clicked');
+                        onTap: () {
+                          switch (index) {
+                            case 0:
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context, '/timecapsule', (route) => false);
+                              break;
+
+                            case 1:
+                              Navigator.pushNamed(context, '/valfi');
+                              break;
+                            case 2:
+                              Navigator.pushNamed(context, '/freshieorientation');
+                              break;
+                            // case 3:
+                            //   Navigator.pushNamed(context, '/knowyourprofs');
+                            //   break;
+                            // case 4:
+                            //   Navigator.pushNamed(context, '/traditionalday');
+                            //   break;
+                            // case 5:
+                            //   Navigator.pushNamed(context, '/coretalks');
+                            //   break;
+                            // case 6:
+                            //   Navigator.pushNamed(context, '/departmenttrips');
+                            //   break;
+                            // case 7:
+                            //   Navigator.pushNamed(context, '/sportevents');
+                            //   break;
+                            // case 8:
+                            //   Navigator.pushNamed(context, '/paneldiscussions');
+                            //   break;
+                            // case 9:
+                            //   Navigator.pushNamed(context, '/alumnireunion');
+                            //   break;
+                            // case 10:
+                            //   Navigator.pushNamed(context, '/convocation');
+                            //   break;
+                            // case 11:
+                            //   Navigator.pushNamed(context, '/miscellaneousevents');
+                            //   break;
+                            // print('Event $index');
+                          }
                         },
                         child: ClipRRect(
                             borderRadius: BorderRadius.circular(40),
