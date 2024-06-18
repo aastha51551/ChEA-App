@@ -18,6 +18,7 @@ import 'package:chea/pages/event_pages/valfi.dart';
 import 'package:chea/pages/events.dart';
 import 'package:chea/pages/home.dart';
 import 'package:chea/pages/proflie.dart';
+import 'package:chea/pages/publication.dart';
 // import 'package:chea/utils/side_navbar.dart';
 import 'package:flutter/material.dart';
 
@@ -60,7 +61,8 @@ class _MyAppState extends State<MyApp> {
         '/paneldiscussions': (context) => PanelDiscussion(),
         '/alumnirenuion': (context) => AlumniReunion(),
         '/convocation': (context) => Convocation(),
-        '/miscellaneousevents': (context) =>  Miscellaneous(),
+        '/miscellaneousevents': (context) => Miscellaneous(),
+        '/publication': (context) => Publication(),
       },
     );
   }
