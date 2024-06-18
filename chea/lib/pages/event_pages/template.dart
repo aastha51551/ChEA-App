@@ -18,12 +18,14 @@ class TabData {
 
 class CustomTabView extends StatefulWidget {
   final String pageTitle;
+  // final String icon;
   final List<TabData> tabs;
 
   const CustomTabView({
     Key? key,
     required this.pageTitle,
     required this.tabs,
+    // required this.icon,
   }) : super(key: key);
 
   @override
@@ -53,6 +55,7 @@ class _CustomTabViewState extends State<CustomTabView>
       floatingActionButton: ChEAGPT(context),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       appBar: AppBar(
+        // leading: Image.asset(widget.icon),
         automaticallyImplyLeading: false,
         backgroundColor: Color(defaultBackground),
         toolbarHeight: 80,
@@ -102,6 +105,7 @@ class _CustomTabViewState extends State<CustomTabView>
           Container(
             color: Color(defaultBackground),
             child: TabBar(
+              isScrollable: true,
               controller: _tabController,
               indicatorColor: const Color(0xffff752c),
               dividerColor: Color(defaultBackground),
@@ -109,9 +113,13 @@ class _CustomTabViewState extends State<CustomTabView>
               unselectedLabelColor: Colors.grey,
               tabs: widget.tabs
                   .map((tab) => Tab(
-                        child: Text(tab.title,
-                            style: GoogleFonts.nunitoSans(
-                                fontSize: 18, fontWeight: FontWeight.w700)),
+                        child: Container(
+                          width: 120,
+                          child: Text(tab.title,
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.nunitoSans(
+                                  fontSize: 18, fontWeight: FontWeight.w700)),
+                        ),
                       ))
                   .toList(),
             ),

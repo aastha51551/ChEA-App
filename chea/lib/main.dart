@@ -3,12 +3,22 @@
 import 'package:chea/pages/Opportunities.dart';
 import 'package:chea/pages/blogs.dart';
 import 'package:chea/pages/cheagpt.dart';
+import 'package:chea/pages/event_pages/alumni_reunion.dart';
+import 'package:chea/pages/event_pages/convocation.dart';
+import 'package:chea/pages/event_pages/core_talks.dart';
+import 'package:chea/pages/event_pages/department_trip.dart';
 import 'package:chea/pages/event_pages/freshie_oreo.dart';
+import 'package:chea/pages/event_pages/know_your_profs.dart';
+import 'package:chea/pages/event_pages/miscellaneous.dart';
+import 'package:chea/pages/event_pages/panel_discussion.dart';
+import 'package:chea/pages/event_pages/sport_event.dart';
 import 'package:chea/pages/event_pages/time_capsule.dart';
+import 'package:chea/pages/event_pages/trad_day.dart';
 import 'package:chea/pages/event_pages/valfi.dart';
 import 'package:chea/pages/events.dart';
 import 'package:chea/pages/home.dart';
 import 'package:chea/pages/proflie.dart';
+import 'package:chea/pages/publication.dart';
 // import 'package:chea/utils/side_navbar.dart';
 import 'package:flutter/material.dart';
 
@@ -43,6 +53,16 @@ class _MyAppState extends State<MyApp> {
         '/timecapsule': (context) => TimeCapsule(),
         '/valfi': (context) => Valfi(),
         '/freshieorientation': (context) => FreshieOrientation(),
+        '/knowyourprofs': (context) => knowYourProf(),
+        '/traditionalday': (context) => TradDay(),
+        '/coretalks': (context) => CoreTalk(),
+        '/departmenttrips': (context) => DepartmentTrip(),
+        '/sportevents': (context) => SportEvent(),
+        '/paneldiscussions': (context) => PanelDiscussion(),
+        '/alumnirenuion': (context) => AlumniReunion(),
+        '/convocation': (context) => Convocation(),
+        '/miscellaneousevents': (context) => Miscellaneous(),
+        '/publication': (context) => Publication(),
       },
     );
   }

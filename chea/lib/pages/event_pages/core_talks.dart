@@ -1,12 +1,12 @@
 import 'package:chea/pages/event_pages/template.dart';
 import 'package:flutter/material.dart';
 
-class FreshieOrientation extends StatefulWidget {
+class CoreTalk extends StatefulWidget {
   @override
-  _FreshieOrientationState createState() => _FreshieOrientationState();
+  _CoreTalkState createState() => _CoreTalkState();
 }
 
-class _FreshieOrientationState extends State<FreshieOrientation>
+class _CoreTalkState extends State<CoreTalk>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
@@ -26,34 +26,16 @@ class _FreshieOrientationState extends State<FreshieOrientation>
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomTabView(
-        // icon: 'assets/images/3.png',
-        pageTitle: 'Freshie Orientation', tabs: [
+        // icon:'assets/images/6.png',
+        pageTitle: 'Core Talks', tabs: [
         TabData(
-          title: '2023',
+          title: '2020 - 2021',
           content: Container(
             color: Color(defaultBackground),
           ),
         ),
         TabData(
-          title: '2022',
-          content: Container(
-            color: Color(defaultBackground),
-          ),
-        ),
-        TabData(
-          title: '2019',
-          content: Container(
-            color: Color(defaultBackground),
-          ),
-        ),
-        TabData(
-          title: '2018',
-          content: Container(
-            color: Color(defaultBackground),
-          ),
-        ),
-        TabData(
-          title: '2017',
+          title: '2019 - 2020',
           content: Container(
             color: Color(defaultBackground),
           ),

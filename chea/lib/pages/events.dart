@@ -51,17 +51,17 @@ class Events extends StatelessWidget {
           selectedIndex: 5,
           onItemTapped: (int index) {
             if (index == 0) {
-              Navigator.pushNamedAndRemoveUntil(
-                  context, '/home', (route) => false);
+              Navigator.pushNamed(
+                  context, '/home');
             } else if (index == 1)
-              Navigator.pushNamedAndRemoveUntil(
-                  context, '/blog', (route) => false);
+              Navigator.pushNamed(
+                  context, '/blog');
             else if (index == 3)
-              Navigator.pushNamedAndRemoveUntil(
-                  context, '/opportunities', (route) => false);
+              Navigator.pushNamed(
+                  context, '/opportunities');
             else if (index == 4)
-              Navigator.pushNamedAndRemoveUntil(
-                  context, '/profile', (route) => false);
+              Navigator.pushNamed(
+                  context, '/profile');
           }),
       floatingActionButton: ChEAGPT(context),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -229,44 +229,53 @@ class EventGrid extends StatelessWidget {
                         onTap: () {
                           switch (index) {
                             case 0:
-                              Navigator.pushNamedAndRemoveUntil(
-                                  context, '/timecapsule', (route) => false);
+                              Navigator.pushNamed(
+                                  context, '/timecapsule');
                               break;
-
                             case 1:
-                              Navigator.pushNamed(context, '/valfi');
+                              Navigator.pushNamed(
+                                  context, '/valfi');
                               break;
                             case 2:
-                              Navigator.pushNamed(context, '/freshieorientation');
+                              Navigator.pushNamed(context,
+                                  '/freshieorientation');
                               break;
-                            // case 3:
-                            //   Navigator.pushNamed(context, '/knowyourprofs');
-                            //   break;
-                            // case 4:
-                            //   Navigator.pushNamed(context, '/traditionalday');
-                            //   break;
-                            // case 5:
-                            //   Navigator.pushNamed(context, '/coretalks');
-                            //   break;
-                            // case 6:
-                            //   Navigator.pushNamed(context, '/departmenttrips');
-                            //   break;
-                            // case 7:
-                            //   Navigator.pushNamed(context, '/sportevents');
-                            //   break;
-                            // case 8:
-                            //   Navigator.pushNamed(context, '/paneldiscussions');
-                            //   break;
-                            // case 9:
-                            //   Navigator.pushNamed(context, '/alumnireunion');
-                            //   break;
-                            // case 10:
-                            //   Navigator.pushNamed(context, '/convocation');
-                            //   break;
-                            // case 11:
-                            //   Navigator.pushNamed(context, '/miscellaneousevents');
-                            //   break;
-                            // print('Event $index');
+                            case 3:
+                              Navigator.pushNamed(
+                                  context, '/knowyourprofs');
+                              break;
+                            case 4:
+                              Navigator.pushNamed(
+                                  context, '/traditionalday');
+                              break;
+                            case 5:
+                              Navigator.pushNamed(
+                                  context, '/coretalks');
+                              break;
+                            case 6:
+                              Navigator.pushNamed(context,
+                                  '/departmenttrips');
+                              break;
+                            case 7:
+                              Navigator.pushNamed(
+                                  context, '/sportevents');
+                              break;
+                            case 8:
+                              Navigator.pushNamed(context,
+                                  '/paneldiscussions');
+                              break;
+                            case 9:
+                              Navigator.pushNamed(
+                                  context, '/alumnireunion');
+                              break;
+                            case 10:
+                              Navigator.pushNamed(
+                                  context, '/convocation');
+                              break;
+                            case 11:
+                              Navigator.pushNamed(context,
+                                  '/miscellaneousevents');
+                              break;
                           }
                         },
                         child: ClipRRect(
