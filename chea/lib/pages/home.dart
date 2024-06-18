@@ -26,14 +26,14 @@ class Home extends StatelessWidget {
         selectedIndex: 0,
         onItemTapped: (int index) {
           if (index == 1)
-            Navigator.pushNamedAndRemoveUntil(
-                context, '/blog', (route) => false);
+            Navigator.pushNamed(
+                context, '/blog');
           else if (index == 2)
-            Navigator.pushNamedAndRemoveUntil(
-                context, '/opportunities', (route) => false);
+            Navigator.pushNamed(
+                context, '/opportunities');
           else if (index == 3)
-            Navigator.pushNamedAndRemoveUntil(
-                context, '/profile', (route) => false);
+            Navigator.pushNamed(
+                context, '/profile');
         },
       ),
       appBar: appbar(),
