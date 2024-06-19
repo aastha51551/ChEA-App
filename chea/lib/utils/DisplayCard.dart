@@ -53,11 +53,9 @@ class _DisplayCardState extends State<DisplayCard> {
         if (snapshot.hasData) {
           return InkWell(
             onTap: () async {
-              if (await canLaunchUrl(widget.googleDriveLink)) {
+
                 await launchUrl(widget.googleDriveLink);
-              } else {
-                throw 'Could not launch ${widget.googleDriveLink}';
-              }
+
             },
             child: AspectRatio(
               aspectRatio: snapshot.data!,

@@ -92,11 +92,9 @@ class _DisplayCard2State extends State<DisplayCard2> {
                           scheme: 'mailto',
                           path: widget.email,
                         );
-                        if (await canLaunchUrl(emailLaunchUri)) {
+
                           await launchUrl(emailLaunchUri);
-                        } else {
-                          throw 'Could not launch ${widget.email}';
-                        }
+
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -123,11 +121,9 @@ class _DisplayCard2State extends State<DisplayCard2> {
                       onTap: () async {
                         final Uri phoneLaunchUri =
                             Uri(scheme: 'tel', path: widget.mobilenumber);
-                        if (await canLaunchUrl(phoneLaunchUri)) {
+
                           await launchUrl(phoneLaunchUri);
-                        } else {
-                          throw 'Could not launch ${widget.mobilenumber}';
-                        }
+
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
