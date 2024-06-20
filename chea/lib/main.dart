@@ -3,6 +3,7 @@
 import 'package:chea/pages/Opportunities.dart';
 import 'package:chea/pages/blogs.dart';
 import 'package:chea/pages/cheagpt.dart';
+import 'package:chea/pages/contact_us.dart';
 import 'package:chea/pages/event_pages/alumni_reunion.dart';
 import 'package:chea/pages/event_pages/convocation.dart';
 import 'package:chea/pages/event_pages/core_talks.dart';
@@ -66,6 +67,7 @@ class _MyAppState extends State<MyApp> {
         '/publication': (context) => const Publication(),
         '/link': (context) => const Link(),
         '/facads': (context) => const FacAd(),
+        '/contactus': (context) => const ContactUs(),
       },
     );
   }

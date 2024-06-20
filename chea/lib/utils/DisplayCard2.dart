@@ -9,13 +9,16 @@ class DisplayCard2 extends StatefulWidget {
   final String name;
   final String email;
   final String mobilenumber;
+  final String position;
 
-  const DisplayCard2(
-      {super.key,
-      required this.backgroundImage,
-      required this.name,
-      required this.email,
-      required this.mobilenumber});
+  const DisplayCard2({
+    super.key,
+    required this.backgroundImage,
+    required this.name,
+    required this.email,
+    required this.mobilenumber,
+    this.position = '',
+  });
 
   @override
   _DisplayCard2State createState() => _DisplayCard2State();
@@ -60,16 +63,31 @@ class _DisplayCard2State extends State<DisplayCard2> {
               if (!isTapped)
                 Container(
                   margin: const EdgeInsets.only(bottom: 20),
-                  child: Center(
-                    child: Text(
-                      widget.name,
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.nunitoSans(
-                        color: Colors.white,
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
+                  child: Column(
+                    children: [
+                      Center(
+                        child: Text(
+                          widget.name,
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.nunitoSans(
+                            color: Colors.white,
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
-                    ),
+                      Center(
+                        child: Text(
+                          widget.position,
+                          style: GoogleFonts.montserrat(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               if (isTapped)
@@ -86,6 +104,17 @@ class _DisplayCard2State extends State<DisplayCard2> {
                         ),
                       ),
                     ),
+                    Center(
+                      child: Text(
+                        widget.position,
+                        style: GoogleFonts.montserrat(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                    ),
                     GestureDetector(
                       onTap: () async {
                         final Uri emailLaunchUri = Uri(
@@ -93,8 +122,7 @@ class _DisplayCard2State extends State<DisplayCard2> {
                           path: widget.email,
                         );
 
-                          await launchUrl(emailLaunchUri);
-
+                        await launchUrl(emailLaunchUri);
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -122,8 +150,7 @@ class _DisplayCard2State extends State<DisplayCard2> {
                         final Uri phoneLaunchUri =
                             Uri(scheme: 'tel', path: widget.mobilenumber);
 
-                          await launchUrl(phoneLaunchUri);
-
+                        await launchUrl(phoneLaunchUri);
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
