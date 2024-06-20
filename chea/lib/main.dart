@@ -16,10 +16,11 @@ import 'package:chea/pages/event_pages/time_capsule.dart';
 import 'package:chea/pages/event_pages/trad_day.dart';
 import 'package:chea/pages/event_pages/valfi.dart';
 import 'package:chea/pages/events.dart';
+import 'package:chea/pages/facads.dart';
 import 'package:chea/pages/home.dart';
+import 'package:chea/pages/links.dart';
 import 'package:chea/pages/proflie.dart';
 import 'package:chea/pages/publication.dart';
-// import 'package:chea/utils/side_navbar.dart';
 import 'package:flutter/material.dart';
 
 int defaultBackground = 0xff08050c;
@@ -62,7 +63,9 @@ class _MyAppState extends State<MyApp> {
         '/alumnirenuion': (context) => AlumniReunion(),
         '/convocation': (context) => Convocation(),
         '/miscellaneousevents': (context) => Miscellaneous(),
-        '/publication': (context) => Publication(),
+        '/publication': (context) => const Publication(),
+        '/link': (context) => const Link(),
+        '/facads': (context) => const FacAd(),
       },
     );
   }

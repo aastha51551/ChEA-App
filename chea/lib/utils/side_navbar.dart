@@ -93,6 +93,7 @@ class buildDrawer extends StatelessWidget {
                           fontSize: 20,
                           fontWeight: FontWeight.w400,
                           color: Colors.white)),
+                  onTap: () => Navigator.of(context).pushNamed('/link'),
                 ),
               ),
               Padding(
@@ -109,6 +110,7 @@ class buildDrawer extends StatelessWidget {
                           fontSize: 20,
                           fontWeight: FontWeight.w400,
                           color: Colors.white)),
+                  onTap: () => Navigator.of(context).pushNamed('/facads'),
                 ),
               ),
               Padding(

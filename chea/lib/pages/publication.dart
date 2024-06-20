@@ -1,9 +1,6 @@
-import 'dart:async';
-
 import 'package:chea/pages/event_pages/template.dart';
+import 'package:chea/utils/DisplayCard.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class Publication extends StatefulWidget {
   const Publication({super.key});
@@ -46,7 +43,7 @@ class _PublicationState extends State<Publication>
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 40.0, vertical: 10),
-                      child: PublicationCard(
+                      child: DisplayCard(
                         backgroundImage: 'assets/images/CheaVoice23.jpg',
                         title: 'ChEA Voice       ',
                         googleDriveLink: Uri.parse(
@@ -71,7 +68,7 @@ class _PublicationState extends State<Publication>
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 40.0, vertical: 15),
-                      child: PublicationCard(
+                      child: DisplayCard(
                         backgroundImage: 'assets/images/CheaVoice22.jpg',
                         title: 'ChEA Voice',
                         googleDriveLink: Uri.parse(
@@ -84,7 +81,7 @@ class _PublicationState extends State<Publication>
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 40.0, vertical: 15),
-                      child: PublicationCard(
+                      child: DisplayCard(
                         backgroundImage: 'assets/images/AlumOracle22.png',
                         title: 'The Alum Oracle',
                         googleDriveLink: Uri.parse(
@@ -97,7 +94,7 @@ class _PublicationState extends State<Publication>
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 40.0, vertical: 15),
-                      child: PublicationCard(
+                      child: DisplayCard(
                         backgroundImage: 'assets/images/AlumOracle22.png',
                         title: "The Alum Oracle Dark",
                         googleDriveLink: Uri.parse(
@@ -122,7 +119,7 @@ class _PublicationState extends State<Publication>
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 40.0, vertical: 10),
-                      child: PublicationCard(
+                      child: DisplayCard(
                         backgroundImage: 'assets/images/CheaVoice21.png',
                         title: 'ChEA Voice       ',
                         googleDriveLink: Uri.parse(
@@ -135,7 +132,7 @@ class _PublicationState extends State<Publication>
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 40.0, vertical: 10),
-                      child: PublicationCard(
+                      child: DisplayCard(
                         backgroundImage: 'assets/images/AlumOracle21.png',
                         title: 'The \nAlum Oracle',
                         googleDriveLink: Uri.parse(
@@ -148,7 +145,7 @@ class _PublicationState extends State<Publication>
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 40.0, vertical: 10),
-                      child: PublicationCard(
+                      child: DisplayCard(
                         backgroundImage: 'assets/images/ChemicalGazette21.png',
                         title: 'Chemical Gazette',
                         googleDriveLink: Uri.parse(
@@ -173,7 +170,7 @@ class _PublicationState extends State<Publication>
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 40.0, vertical: 10),
-                      child: PublicationCard(
+                      child: DisplayCard(
                         backgroundImage: 'assets/images/CheaVoice20.png',
                         title: 'ChEA Voice',
                         googleDriveLink: Uri.parse(
@@ -186,7 +183,7 @@ class _PublicationState extends State<Publication>
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 40.0, vertical: 10),
-                      child: PublicationCard(
+                      child: DisplayCard(
                         backgroundImage: 'assets/images/ChemicalGazette20.png',
                         title: 'Chemical Gazette',
                         googleDriveLink: Uri.parse(
@@ -211,7 +208,7 @@ class _PublicationState extends State<Publication>
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 40.0, vertical: 10),
-                      child: PublicationCard(
+                      child: DisplayCard(
                         backgroundImage: 'assets/images/CheaVoice19.png',
                         title: 'ChEA Voice',
                         googleDriveLink: Uri.parse(
@@ -224,7 +221,7 @@ class _PublicationState extends State<Publication>
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 40.0, vertical: 10),
-                      child: PublicationCard(
+                      child: DisplayCard(
                         backgroundImage: 'assets/images/ChemicalGazette19.png',
                         title: 'Chemical Gazette',
                         googleDriveLink: Uri.parse(
@@ -250,7 +247,7 @@ class _PublicationState extends State<Publication>
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 40.0, vertical: 10),
-                      child: PublicationCard(
+                      child: DisplayCard(
                         backgroundImage: 'assets/images/ChemicalGazette17.png',
                         title: 'Chemical Gazette',
                         googleDriveLink: Uri.parse(
@@ -268,11 +265,11 @@ class _PublicationState extends State<Publication>
   }
 }
 
-// class PublicationCard extends StatelessWidget {
+// class DisplayCard extends StatelessWidget {
 //   final String backgroundImage;
 //   final String title;
 //   final Uri googleDriveLink;
-//   const PublicationCard({
+//   const DisplayCard({
 //     super.key,
 //     required this.backgroundImage,
 //     required this.title,
@@ -331,106 +328,3 @@ class _PublicationState extends State<Publication>
 //     );
 //   }
 // }
-
-class PublicationCard extends StatefulWidget {
-  final String backgroundImage;
-  final String title;
-  final Uri googleDriveLink;
-
-  const PublicationCard({
-    super.key,
-    required this.backgroundImage,
-    required this.title,
-    required this.googleDriveLink,
-  });
-
-  @override
-  _PublicationCardState createState() => _PublicationCardState();
-}
-
-class _PublicationCardState extends State<PublicationCard> {
-  late Future<double> _aspectRatio;
-
-  Future<double> _calculateAspectRatio() async {
-    final ImageProvider imageProvider = AssetImage(widget.backgroundImage);
-    final Completer<Size> completer = Completer<Size>();
-    imageProvider.resolve(const ImageConfiguration()).addListener(
-      ImageStreamListener((ImageInfo image, bool synchronousCall) {
-        final Size imageSize = Size(
-          image.image.width.toDouble(),
-          image.image.height.toDouble(),
-        );
-        completer.complete(imageSize);
-      }),
-    );
-    final Size imageSize = await completer.future;
-    return imageSize.width / imageSize.height;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _aspectRatio = _calculateAspectRatio();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<double>(
-      future: _aspectRatio,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return InkWell(
-            onTap: () async {
-              if (await canLaunchUrl(widget.googleDriveLink)) {
-                await launchUrl(widget.googleDriveLink);
-              } else {
-                throw 'Could not launch ${widget.googleDriveLink}';
-              }
-            },
-            child: AspectRatio(
-              aspectRatio: snapshot.data!,
-              child: Container(
-                margin: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  image: DecorationImage(
-                    image: AssetImage(widget.backgroundImage),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                child: Container(
-                  alignment: Alignment.bottomCenter,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Colors.transparent,
-                          Colors.black.withOpacity(0.7),
-                          Colors.black,
-                        ],
-                      )),
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 25.0),
-                    child: Text(
-                      widget.title,
-                      style: GoogleFonts.nunitoSans(
-                        color: Colors.white,
-                        fontSize: 32,
-                        fontWeight: FontWeight.w700,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          );
-        } else {
-          return Center(child: CircularProgressIndicator());
-        }
-      },
-    );
-  }
-}
