@@ -20,9 +20,9 @@
     <application
         android:label="chea"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher"
-        android:enableOnBackInvokeCallback="true"
-        >
+        android:icon="@mipmap/ic_launcher">
+<!--        android:enableOnBackInvokeCallback="true"-->
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
