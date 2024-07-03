@@ -32,18 +32,17 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'rest_framework',
-    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+    'oauth2_provider',
+    'users',
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -52,8 +51,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'backend.urls'
 
@@ -72,6 +69,31 @@ TEMPLATES = [
         },
     },
 ]
+
+
+AUTH_PROFILE_MODULE = ''
+LOGIN_URL = '/login/'
+FALLBACK_URL = '/login/'
+
+CLIENT_ID = 'xWOt99Vs8jKeFHPqjgHiltLyt2hDjPqTEuK4HVDk'
+CLIENT_SECRET = 'HPVAJ1RXehHtrocfBCsi9QVb7KWb9JIjhgHxNW7AkQnBV0rcRyclqqhhM9YamljM1B41g4NIpY1Rp94IIvw0bn2FW0WFtuluzzy2QZr0DhhLFRu3supfNsU56pdVRtoe'
+
+FIELDS = 'id,username,email,last_name,first_name'
+
+REDIRECT_URI = 'http://localhost:8000/oauth/complete'
+
+LOGIN_COMPLETE_URL = '/login/complete/'
+LOGOUT_REDIRECT = '/'
+
+MAPPING = {
+    'first_name': 'first_name',
+    'last_name': 'last_name',
+}
+
+PROFILE_MAPPING = {
+    'roll_number': 'roll_number',
+}
+
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 

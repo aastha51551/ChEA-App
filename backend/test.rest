@@ -1,0 +1,21 @@
+POST http://127.0.0.1:8001/login
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "admin"
+}
+###
+
+POST http://127.0.0.1:8001/signup
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "admin"
+    "email": "admin@gmail.com"
+}
+###
+GET http://127.0.0.1:8001/test_token
+Content-Type: application/json
+{}

@@ -72,3 +72,5 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
+
+// filter - by roles, by stipend - slider, location
