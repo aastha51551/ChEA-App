@@ -23,6 +23,8 @@ import 'package:chea/pages/links.dart';
 import 'package:chea/pages/proflie.dart';
 import 'package:chea/pages/publication.dart';
 import 'package:flutter/material.dart';
+import 'package:chea/Screens/Welcome/welcome_screen.dart';
+import 'package:chea/constants.dart';
 
 int defaultBackground = 0xff08050c;
 void main() {
@@ -44,7 +46,33 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'ChEA',
-      home: Home(),
+      theme: ThemeData(
+          primaryColor: kPrimaryColor,
+          scaffoldBackgroundColor: Colors.white,
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              elevation: 0,
+              foregroundColor: Colors.white,
+              backgroundColor: kPrimaryColor,
+              shape: const StadiumBorder(),
+              maximumSize: const Size(double.infinity, 56),
+              minimumSize: const Size(double.infinity, 56),
+            ),
+          ),
+          inputDecorationTheme: const InputDecorationTheme(
+            filled: true,
+            fillColor: kPrimaryLightColor,
+            iconColor: kPrimaryColor,
+            prefixIconColor: kPrimaryColor,
+            contentPadding: EdgeInsets.symmetric(
+                horizontal: defaultPadding, vertical: defaultPadding),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(30)),
+              borderSide: BorderSide.none,
+            ),
+          )),
+      // home: Home(),
+      home: const WelcomeScreen(),
       routes: {
         '/home': (context) => const Home(),
         '/events': (context) => const Events(),
