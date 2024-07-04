@@ -16,10 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from users.views import login, callback
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/',login,name='login'),
-    path('oauth/complete',callback,name='callback'),
 ]

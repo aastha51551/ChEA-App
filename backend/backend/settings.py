@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-m--s-*$ks7&xglt*0fy%0_ldf270ewzjeq&j(e$%lj#w!*=f*m'
+SECRET_KEY = 'django-insecure-pun=k&0)j4(das&2stuu8frcf=7x9*lstbrs)fxr*k4n^5@u!8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -31,15 +31,12 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'oauth2_provider',
-    'users',
 ]
 
 MIDDLEWARE = [
@@ -69,31 +66,6 @@ TEMPLATES = [
         },
     },
 ]
-
-
-AUTH_PROFILE_MODULE = ''
-LOGIN_URL = '/login/'
-FALLBACK_URL = '/login/'
-
-CLIENT_ID = 'xWOt99Vs8jKeFHPqjgHiltLyt2hDjPqTEuK4HVDk'
-CLIENT_SECRET = 'HPVAJ1RXehHtrocfBCsi9QVb7KWb9JIjhgHxNW7AkQnBV0rcRyclqqhhM9YamljM1B41g4NIpY1Rp94IIvw0bn2FW0WFtuluzzy2QZr0DhhLFRu3supfNsU56pdVRtoe'
-
-FIELDS = 'id,username,email,last_name,first_name'
-
-REDIRECT_URI = 'http://localhost:8000/oauth/complete'
-
-LOGIN_COMPLETE_URL = '/login/complete/'
-LOGOUT_REDIRECT = '/'
-
-MAPPING = {
-    'first_name': 'first_name',
-    'last_name': 'last_name',
-}
-
-PROFILE_MAPPING = {
-    'roll_number': 'roll_number',
-}
-
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
