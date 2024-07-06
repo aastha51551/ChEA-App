@@ -46,7 +46,7 @@ class Blogs extends StatelessWidget {
         ],
         backgroundColor: Color(defaultBackground),
       ),
-      body: const EventPage(),
+      body: const BlogPage(),
       bottomNavigationBar: MyNavigationBar(
           selectedIndex: 1,
           onItemTapped: (int index) {
@@ -67,8 +67,8 @@ class Blogs extends StatelessWidget {
   }
 }
 
-class EventPage extends StatelessWidget {
-  const EventPage({
+class BlogPage extends StatelessWidget {
+  const BlogPage({
     super.key,
   });
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+// ignore: must_be_immutable
 class OpportunitiesCard extends StatefulWidget {
   final String title;
   final String stipend;
