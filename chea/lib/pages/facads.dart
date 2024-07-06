@@ -5,9 +5,7 @@ import 'package:flutter/material.dart';
 class FacAd extends StatefulWidget {
   const FacAd({super.key});
 
-  @override
-  // ignore: library_private_types_in_public_api
-  _FacAdState createState() => _FacAdState();
+  @override _FacAdState createState() => _FacAdState();
 }
 
 class _FacAdState extends State<FacAd> with SingleTickerProviderStateMixin {
