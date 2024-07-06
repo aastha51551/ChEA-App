@@ -64,7 +64,7 @@ class _CustomTabViewState extends State<CustomTabView>
           child: Text(
             widget.pageTitle,
             style: GoogleFonts.nunitoSans(
-                color: Colors.white, fontSize: 28, fontWeight: FontWeight.w700),
+                color: Colors.white, fontSize: 38, fontWeight: FontWeight.w700),
           ),
         ),
         actions: [

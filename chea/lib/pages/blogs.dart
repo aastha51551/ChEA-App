@@ -1,3 +1,4 @@
+
 // ignore_for_file: curly_braces_in_flow_control_structures
 
 import 'package:chea/utils/cheagpt.dart';
@@ -6,6 +7,11 @@ import 'package:chea/utils/side_navbar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
+// import 'package:google_fonts/google_fonts.dart';
+// import 'package:flutter_svg/svg.dart';
+import 'package:chea/pages/event_pages/template.dart';
+// import 'package:chea/utils/DisplayCard.dart';
+int defaultBackground = 0xff08050c;
 
 int defaultBackground = 0xff09050d;
 
@@ -14,7 +20,43 @@ class Blogs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+return Scaffold(
+
+      body: BlogsPage(),
+    );
+  }
+}
+
+class BlogsPage extends StatefulWidget {
+  @override
+  _BlogsPageState createState() => _BlogsPageState();
+}
+
+class _BlogsPageState extends State<BlogsPage>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
+    var padding = MediaQuery.of(context).padding;
+    var safeHeight = height - padding.top - padding.bottom;
+    
     return Scaffold(
+
       appBar: AppBar(
         toolbarHeight: 80,
         automaticallyImplyLeading: false,
@@ -143,9 +185,13 @@ class BlogPage extends StatelessWidget {
               )
             ],
           ),
-        ));
+        ),
+        
+      ]),
+    );
   }
 }
+
 
 class BlogsCard {
   final Image icon;

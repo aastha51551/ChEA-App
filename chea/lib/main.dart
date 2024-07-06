@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last, camel_case_types
 
-import 'package:chea/pages/Opportunities.dart';
+import 'package:chea/pages/opportunities.dart';
 import 'package:chea/pages/blogs.dart';
 import 'package:chea/pages/blogs_pages/internblog.dart';
 import 'package:chea/pages/cheagpt.dart';
@@ -74,7 +74,6 @@ class _MyAppState extends State<MyApp> {
               borderSide: BorderSide.none,
             ),
           )),
-      // home: Home(),
       home: const WelcomeScreen(),
       routes: {
         '/home': (context) => const Home(),
