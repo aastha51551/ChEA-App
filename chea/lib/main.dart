@@ -2,6 +2,7 @@
 
 import 'package:chea/pages/Opportunities.dart';
 import 'package:chea/pages/blogs.dart';
+import 'package:chea/pages/blogs_pages/internblog.dart';
 import 'package:chea/pages/cheagpt.dart';
 import 'package:chea/pages/contact_us.dart';
 import 'package:chea/pages/event_pages/alumni_reunion.dart';
@@ -20,6 +21,8 @@ import 'package:chea/pages/events.dart';
 import 'package:chea/pages/facads.dart';
 import 'package:chea/pages/home.dart';
 import 'package:chea/pages/links.dart';
+import 'package:chea/pages/profilePage/BookmarkedArticles.dart';
+import 'package:chea/pages/profilePage/FavOpportunities.dart';
 import 'package:chea/pages/proflie.dart';
 import 'package:chea/pages/publication.dart';
 import 'package:flutter/material.dart';
@@ -76,7 +79,7 @@ class _MyAppState extends State<MyApp> {
       routes: {
         '/home': (context) => const Home(),
         '/events': (context) => const Events(),
-        '/blog': (context) => const Blog(),
+        '/blog': (context) => const Blogs(),
         '/profile': (context) => const Profile(),
         '/opportunities': (context) => const Opportunities(),
         '/ai': (context) => const ChEAGPT(),
@@ -96,6 +99,9 @@ class _MyAppState extends State<MyApp> {
         '/link': (context) => const Link(),
         '/facads': (context) => const FacAd(),
         '/contactus': (context) => const ContactUs(),
+        '/internblog': (context) =>  InternBlog(),
+        '/bookmarks': (context) => const BookmarkedArticles(),
+        '/favopportunities': (context) => const Favopportunities(),
       },
     );
   }

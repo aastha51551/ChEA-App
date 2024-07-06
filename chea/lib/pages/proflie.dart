@@ -288,7 +288,9 @@ class _ProfileState extends State<Profile> {
 
                             ),
                             Expanded(
-                              child: TextButton(onPressed: (){}, child:
+                              child: TextButton(onPressed: (){
+                                Navigator.pushNamed(context, '/favopportunities');
+                              }, child:
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
@@ -328,7 +330,9 @@ class _ProfileState extends State<Profile> {
 
                             ),
                             Expanded(
-                              child: TextButton(onPressed: (){}, child:
+                              child: TextButton(onPressed: (){
+                                Navigator.pushNamed(context, '/bookmarks');
+                              }, child:
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
