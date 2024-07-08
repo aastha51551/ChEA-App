@@ -118,7 +118,7 @@ class _PublicationState extends State<Publication>
                     width: 400,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 40.0, vertical: 10),
+                          horizontal: 15.0, vertical: 10),
                       child: DisplayCard(
                         backgroundImage: 'assets/images/CheaVoice21.png',
                         title: 'ChEA Voice       ',

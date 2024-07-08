@@ -93,14 +93,14 @@ class _BlogsPageState extends State<BlogsPage>
           selectedIndex: 1,
           onItemTapped: (int index) {
             if (index == 0) {
-              Navigator.pushNamed(
-                  context, '/home');
-            } else if (index == 3)
-              Navigator.pushNamed(
-                  context, '/opportunities');
-            else if (index == 4)
-              Navigator.pushNamed(
-                  context, '/profile');
+              Navigator.pushNamedAndRemoveUntil(
+                  context, '/home', (route) => false);
+            } else if (index == 2)
+              Navigator.pushNamedAndRemoveUntil(
+                  context, '/opportunities', (route) => false);
+            else if (index == 3)
+              Navigator.pushNamedAndRemoveUntil(
+                  context, '/profile', (route) => false);
           }),
       floatingActionButton: ChEAGPT(context),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

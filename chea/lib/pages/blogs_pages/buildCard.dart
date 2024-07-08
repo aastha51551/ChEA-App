@@ -8,12 +8,16 @@ class buildCard extends StatelessWidget {
   final String description;
   final bool isBookmarked = false;
   final String Title;
+  final String title;
+  final String date;
 
   const buildCard({
     super.key,
     required this.imageUrl,
     required this.description,
     required this.Title,
+    required this.title,
+    required this.date,
   });
 
   @override
@@ -29,6 +33,8 @@ class buildCard extends StatelessWidget {
                 imageUrl: imageUrl,
                 description: description,
                 isBookmarked: false,
+                title: title,
+                date: date,
               ),
             ),
           );

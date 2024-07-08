@@ -9,9 +9,13 @@ class BlogPage extends StatefulWidget {
   final String imageUrl;
   final String description;
   final bool isBookmarked;
+  final String title;
+  final String date;
 
   BlogPage(
       {required this.imageUrl,
+        required this.title,
+        required this.date,
         required this.description,
         required this.isBookmarked});
 
@@ -82,6 +86,46 @@ class _BlogPageState extends State<BlogPage> {
                               fit: BoxFit.cover,
                             ),
                           ),
+                          child: Container(
+                            alignment: Alignment.bottomLeft,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    Colors.transparent,
+                                    Colors.black.withOpacity(0.7),
+                                    Colors.black,
+                                  ],
+                                )),
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 25.0),
+                              child: RichText(
+                                textAlign: TextAlign.left,
+                                text: TextSpan(
+                                  style: GoogleFonts.montserrat(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w200,
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: widget.title,
+                                      style: GoogleFonts.nunitoSans(
+                                        color: Colors.white,
+                                        fontSize: 28,
+                                        fontWeight: FontWeight.w700,
+                                    )),
+                                    TextSpan(
+                                      text: "\n ${widget.date}",
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
                         const SizedBox(height: 20),
                         Text(
@@ -112,12 +156,12 @@ class _BlogPageState extends State<BlogPage> {
                   context,
                   '/blog',
                 );
-              } else if (index == 3) {
+              } else if (index == 2) {
                 Navigator.pushNamed(
                   context,
                   '/opportunities',
                 );
-              } else if (index == 4) {
+              } else if (index == 3) {
                 Navigator.pushNamed(
                   context,
                   '/profile',
