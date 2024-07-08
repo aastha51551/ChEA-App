@@ -156,12 +156,12 @@ class _BlogPageState extends State<BlogPage> {
                   context,
                   '/blog',
                 );
-              } else if (index == 3) {
+              } else if (index == 2) {
                 Navigator.pushNamed(
                   context,
                   '/opportunities',
                 );
-              } else if (index == 4) {
+              } else if (index == 3) {
                 Navigator.pushNamed(
                   context,
                   '/profile',

@@ -119,7 +119,7 @@ class _ProfileState extends State<Profile> {
                           '1 Page Resume',
                           style: GoogleFonts.montserrat(
                             color: Colors.white,
-                            fontSize: 20,
+                            fontSize: 18,
                             fontWeight: FontWeight.w600,
                           ),
 
@@ -163,7 +163,7 @@ class _ProfileState extends State<Profile> {
                             child: Text(isPage1ResumeUploaded?  'Uploaded':"Upload",
                               style: GoogleFonts.montserrat(
                               color: Colors.white,
-                              fontSize: 18,
+                              fontSize: 16,
                               fontWeight: FontWeight.w400,
                               fontStyle: FontStyle.italic,
                               ),),
@@ -202,7 +202,7 @@ class _ProfileState extends State<Profile> {
                             '2 Page Resume',
                             style: GoogleFonts.montserrat(
                               color: Colors.white,
-                              fontSize: 20,
+                              fontSize: 18,
                               fontWeight: FontWeight.w600,
                             ),
 
@@ -246,7 +246,7 @@ class _ProfileState extends State<Profile> {
                               child: Text(isPage2ResumeUploaded?  'Uploaded':"Upload",
                                 style: GoogleFonts.montserrat(
                                   color: Colors.white,
-                                  fontSize: 18,
+                                  fontSize: 16,
                                   fontWeight: FontWeight.w400,
                                   fontStyle: FontStyle.italic,
                                 ),),
@@ -307,7 +307,7 @@ class _ProfileState extends State<Profile> {
                                     Text('Favourite Opportunities',
                                       style: GoogleFonts.montserrat(
                                         color: Colors.white,
-                                        fontSize: 20,
+                                        fontSize: 16,
                                         fontWeight: FontWeight.w600,
                                       ),),
                                     const Icon(Icons.arrow_forward_ios,color: Colors.white,)
@@ -349,7 +349,7 @@ class _ProfileState extends State<Profile> {
                                     Text('Bookmarked Articles',
                                       style: GoogleFonts.montserrat(
                                         color: Colors.white,
-                                        fontSize: 20,
+                                        fontSize: 16,
                                         fontWeight: FontWeight.w600,
                                       ),),
                                     const Icon(Icons.arrow_forward_ios,color: Colors.white,)
