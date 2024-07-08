@@ -1,11 +1,6 @@
-
-// ignore_for_file: curly_braces_in_flow_control_structures
-
-import 'package:chea/utils/cheagpt.dart';
-import 'package:chea/utils/bottom_navbar.dart';
-import 'package:chea/utils/side_navbar.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
+// import 'package:chea/utils/bottom_navbar.dart';
+// import 'package:chea/utils/cheagpt.dart';
+// import 'package:chea/utils/side_navbar.dart';
 import 'package:flutter/material.dart';
 // import 'package:google_fonts/google_fonts.dart';
 // import 'package:flutter_svg/svg.dart';
@@ -13,10 +8,8 @@ import 'package:chea/pages/event_pages/template.dart';
 // import 'package:chea/utils/DisplayCard.dart';
 int defaultBackground = 0xff08050c;
 
-int defaultBackground = 0xff09050d;
-
-class Blogs extends StatelessWidget {
-  const Blogs({super.key});
+class Blog extends StatelessWidget {
+  const Blog({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -56,134 +49,46 @@ class _BlogsPageState extends State<BlogsPage>
     var safeHeight = height - padding.top - padding.bottom;
     
     return Scaffold(
+      body: CustomTabView(pageTitle: 'Blogs', tabs: [
+        TabData(
+          title: '2023 - 2024',
+          content: Container(
+            color: Color(defaultBackground),
+                height: safeHeight,
+                width: width,
+                child: Expanded(child: ListView.builder(
+                    itemCount: 9,
+                    scrollDirection: Axis.vertical,
+                    itemBuilder: (context, index){
+                    //create a blogcard
+                    BlogCard blogCard = BlogCard(imagePath: 'assets/images/blogs1.jpeg', title: 'Tanmay Lodha speaks about his internship at IFP' );
+                    
+                    return BlogTile(
+                      blogcard: blogCard ,
+                    );
+                },)
+              ), 
+            ),   
+          ),
 
-      appBar: AppBar(
-        toolbarHeight: 80,
-        automaticallyImplyLeading: false,
-        title: Padding(
-          padding: const EdgeInsets.only(left: 20.0, top: 20),
-          child: Text(
-            'News',
-            style: GoogleFonts.nunitoSans(
-              fontSize: 48,
-              fontWeight: FontWeight.w700,
-              color: Colors.white,
-            ),
+        TabData(
+          title: '2022 - 2023',
+          content: Container(
+            color: Color(defaultBackground),
           ),
         ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 15.0, top: 20),
-            child: Builder(builder: (context) {
-              return IconButton(
-                  onPressed: () {
-                    Scaffold.of(context).openEndDrawer();
-                  },
-                  icon: SvgPicture.asset(
-                    'assets/icons/Hamburger_LG.svg',
-                    height: 40,
-                  ));
-            }),
+
+        TabData(
+          title: '2018 - 2019',
+          content: Container(
+            color: Color(defaultBackground),
           ),
-        ],
-        backgroundColor: Color(defaultBackground),
-      ),
-      body: const BlogPage(),
-      bottomNavigationBar: MyNavigationBar(
-          selectedIndex: 1,
-          onItemTapped: (int index) {
-            if (index == 0) {
-              Navigator.pushNamed(
-                  context, '/home');
-            } else if (index == 3)
-              Navigator.pushNamed(
-                  context, '/opportunities');
-            else if (index == 4)
-              Navigator.pushNamed(
-                  context, '/profile');
-          }),
-      floatingActionButton: ChEAGPT(context),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      endDrawer: buildDrawer(width: MediaQuery.of(context).size.width),
-    );
-  }
-}
+        ),
 
-class BlogPage extends StatelessWidget {
-  const BlogPage({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        color: Color(defaultBackground),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 15.0, left: 20, right: 20),
-                child: SearchBar(
-                  hintText: 'Search...',
-                  padding:
-                  const WidgetStatePropertyAll(EdgeInsets.only(left: 20)),
-                  leading: (const Icon(
-                    Icons.search,
-                    color: Colors.white,
-                    size: 32,
-                  )),
-                  textStyle: WidgetStatePropertyAll(GoogleFonts.montserrat(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.white)),
-                  elevation: const WidgetStatePropertyAll(0),
-                  backgroundColor:
-                  const WidgetStatePropertyAll(Color(0xff3c3838)),
-                ),
-              ),
-              SizedBox(
-                height: 300,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 15.0),
-                  child: ListView(scrollDirection: Axis.horizontal, children: [
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    Container(
-                      width: 300,
-                      height: 300,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.grey,
-                      ),
-                      child: const Center(child: Text('Trad Day 2k24')),
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    Container(
-                      width: 300,
-                      height: 300,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.grey,
-                      ),
-                      child: const Center(child: Text('Trad Day 2k24')),
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                  ]),
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: EventGrid(),
-              )
-            ],
+        TabData(
+          title: '2017 - 2018',
+          content: Container(
+            color: Color(defaultBackground),
           ),
         ),
         
@@ -192,143 +97,256 @@ class BlogPage extends StatelessWidget {
   }
 }
 
-
-class BlogsCard {
-  final Image icon;
+ class BlogCard {
+  final String imagePath;
   final String title;
-  BlogsCard({required this.icon, required this.title});
+
+  BlogCard({required this.imagePath, required this.title});
 }
 
-class EventGrid extends StatelessWidget {
-  final List<BlogsCard> Blogs = [
-    BlogsCard(icon: Image.asset('assets/images/internblog.jpg'), title: 'Internship Blogs'),
-    BlogsCard(icon: Image.asset('assets/images/placementblog.jpg'), title: 'Placement Blogs'),
-    BlogsCard(
-        icon: Image.asset('assets/images/internera.jpg'), title: 'Intern Era'),
-    BlogsCard(
-        icon: Image.asset('assets/images/appingguide.jpg'), title: 'Apping Guide'),
-    BlogsCard(
-        icon: Image.asset('assets/images/incaseyoudontknow.jpg'), title: 'In Case You Don\'t Know'),
-    BlogsCard(icon: Image.asset('assets/images/thenvsnow.jpg'), title: 'Then vs Now'),
-    BlogsCard(
-        icon: Image.asset('assets/images/semex.jpg'), title: 'Semester Exchange'),
-  ];
-
+class BlogTile extends StatelessWidget {
+  final BlogCard blogcard;
+  // ignore: prefer_const_constructors_in_immutables
+  BlogTile({super.key, required this.blogcard});
+ 
   @override
   Widget build(BuildContext context) {
-    const double maxCrossAxisExtent = 250;
-    const double childAspectRatio = 1;
-    const double crossAxisSpacing = 10;
-    const double mainAxisSpacing = 10;
+    return Container(
+      
+      margin: const EdgeInsets.symmetric(vertical: 5,horizontal: 25),
+      padding: const EdgeInsets.all(14),
+      width: 349,
+      decoration: BoxDecoration(
+        color: Colors.grey,
+        borderRadius: BorderRadius.circular(12),
+      ),
 
-    // Calculate the screen width
-    double screenWidth = MediaQuery.of(context).size.width;
+      child: Row(
+        children: [
+          SizedBox(
+            width: 86,
+            height: 85,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(30),
+              child: Image.asset(blogcard.imagePath)),
+          ),
+            
+            SizedBox(
+              height: 72,
+              width: 218,
+              child: Text(blogcard.title, style: TextStyle(color: Colors.grey[100]),))
+      ],),
+    );}}
 
-    // Calculate the number of columns
-    int columns =
-    (screenWidth / (maxCrossAxisExtent + crossAxisSpacing)).ceil();
 
-    // Calculate the number of rows
-    int rows = (Blogs.length / columns).ceil();
 
-    // Calculate the height of each item
-    double itemHeight = maxCrossAxisExtent / childAspectRatio;
-    double gridHeight = (itemHeight * rows) + (mainAxisSpacing * (rows - 1));
-    return SizedBox(
-      height: gridHeight - 200,
-      child: GridView.builder(
-          itemCount: Blogs.length,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 250,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              childAspectRatio: 1),
-          itemBuilder: (context, index) {
-            return SizedBox(
-              height: 200,
-              width: 200,
-              child: Center(
-                  child: Column(
-                    children: [
-                      Container(
-                          width: 150,
-                          height: 150,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(40),
-                              border: Border.all(
-                                  color: const Color(0xffc25923), width: 2)),
-                          child: GestureDetector(
-                            onTap: () {
-                              switch (index) {
-                                case 0:
-                                  Navigator.pushNamed(
-                                      context, '/internblog');
-                                  break;}
-                            //     case 1:
-                            //       Navigator.pushNamed(
-                            //           context, '/valfi');
-                            //       break;
-                            //     case 2:
-                            //       Navigator.pushNamed(context,
-                            //           '/freshieorientation');
-                            //       break;
-                            //     case 3:
-                            //       Navigator.pushNamed(
-                            //           context, '/knowyourprofs');
-                            //       break;
-                            //     case 4:
-                            //       Navigator.pushNamed(
-                            //           context, '/traditionalday');
-                            //       break;
-                            //     case 5:
-                            //       Navigator.pushNamed(
-                            //           context, '/coretalks');
-                            //       break;
-                            //     case 6:
-                            //       Navigator.pushNamed(context,
-                            //           '/departmenttrips');
-                            //       break;
-                            //     case 7:
-                            //       Navigator.pushNamed(
-                            //           context, '/sportBlogs');
-                            //       break;
-                            //     case 8:
-                            //       Navigator.pushNamed(context,
-                            //           '/paneldiscussions');
-                            //       break;
-                            //     case 9:
-                            //       Navigator.pushNamed(
-                            //           context, '/alumnireunion');
-                            //       break;
-                            //     case 10:
-                            //       Navigator.pushNamed(
-                            //           context, '/convocation');
-                            //       break;
-                            //     case 11:
-                            //       Navigator.pushNamed(context,
-                            //           '/miscellaneousBlogs');
-                            //       break;
-                            //   }
-                            },
-                            child: ClipRRect(
-                                borderRadius: BorderRadius.circular(40),
-                                child: Blogs[index].icon),
-                          )),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10.0),
-                        child: Text(Blogs[index].title,
-                            style: GoogleFonts.nunitoSans(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
-                            )),
-                      ),
-                    ],
-                  )),
-            );
-          }),
-    );
-  }
-}
+// class Blog extends StatelessWidget {
+//   const Blog({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+// return Scaffold(
+    
+//       appBar: AppBar(
+//         toolbarHeight: 80,
+//         automaticallyImplyLeading: false,
+//         title: Padding(
+//           padding: const EdgeInsets.only(left: 20.0, top: 20),
+//           child: Text(
+//             'Blogs',
+//             style: GoogleFonts.nunitoSans(
+//               fontSize: 48,
+//               fontWeight: FontWeight.w700,
+//               color: Colors.white,
+//             ),
+//           ),
+//         ),
+//         actions: [
+//           Padding(
+//             padding: const EdgeInsets.only(right: 15.0, top: 20),
+//             child: Builder(builder: (context) {
+//               return IconButton(
+//                   onPressed: () {
+//                     Scaffold.of(context).openEndDrawer();
+//                   },
+//                   icon: SvgPicture.asset(
+//                     'assets/icons/Hamburger_LG.svg',
+//                     height: 40,
+//                   ));
+//             }),
+//           ),
+//         ],
+//         backgroundColor: Color(defaultBackground),
+//       ),
+
+
+//       body: const BlogsPage(),
+//       bottomNavigationBar: MyNavigationBar(
+//           selectedIndex: 5,
+//           onItemTapped: (int index) {
+//             if (index == 0) {
+//               Navigator.pushNamedAndRemoveUntil(
+//                   context, '/home', (route) => false);
+//             } else if (index == 1){
+//               Navigator.pushNamedAndRemoveUntil(
+//                   context, '/blog', (route) => false);}
+//             else if (index == 3){
+//               Navigator.pushNamedAndRemoveUntil(
+//                   context, '/opportunities', (route) => false);}
+//             else if (index == 4){
+//               Navigator.pushNamedAndRemoveUntil(
+//                   context, '/profile', (route) => false);}
+//           }),
+//       floatingActionButton: ChEAGPT(context),
+//       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+//       endDrawer: buildDrawer(width: MediaQuery.of(context).size.width),
+//     );
+//   }
+// }
+
+
+// class BlogsPage extends StatelessWidget {
+//   const BlogsPage({
+//     super.key,
+//   });
+
+//   @override
+//   Widget build(BuildContext context) {
+//     var width = MediaQuery.of(context).size.width;
+//     var height = MediaQuery.of(context).size.height;
+//     var padding = MediaQuery.of(context).padding;
+//     var safeHeight = height - padding.top - padding.bottom;
+//     return Container(
+//         color: Color(defaultBackground),
+//         child: SingleChildScrollView(
+//           child: Column(
+//             children: [
+//               Padding(
+//                 padding: const EdgeInsets.only(top: 15.0, left: 20, right: 20),
+//                 child: SearchBar(
+//                   hintText: 'Search...',
+//                   padding:
+//                       const WidgetStatePropertyAll(EdgeInsets.only(left: 20)),
+//                   leading: (const Icon(
+//                     Icons.search,
+//                     color: Colors.white,
+//                     size: 32,
+//                   )),
+//                   textStyle: WidgetStatePropertyAll(GoogleFonts.montserrat(
+//                       fontSize: 16,
+//                       fontWeight: FontWeight.w400,
+//                       color: Colors.white)),
+//                   elevation: const WidgetStatePropertyAll(0),
+//                   backgroundColor:
+//                       const WidgetStatePropertyAll(Color(0xff3c3838)),
+//                 ),
+//               ),
+
+//               SizedBox(
+//                 height: 41,
+//                 child: Padding(
+//               padding: const EdgeInsets.only(top: 21.0),
+//                   child: ListView(scrollDirection: Axis.horizontal, children: [
+//                     const SizedBox(
+//                       width: 32,
+//                     ),
+//                     Container(
+//                       width: 76,
+//                       height: 41,
+//                       // decoration: BoxDecoration(
+//                       //   borderRadius: BorderRadius.circular(20),
+//                       //   color: Colors.grey,
+//                       // ),
+//                       child: Center(child: Text(
+//                         '2023-24', style:GoogleFonts.nunitoSans(
+//                             fontSize: 18,
+//                             color: Colors.white,
+//                             ),
+//                             )
+//                             ),
+//                     ),
+//                     const SizedBox(
+//                       width: 32,
+//                     ),
+//                     Container(
+//                       width: 76,
+//                       height: 41,
+//                       // decoration: BoxDecoration(
+//                       //   borderRadius: BorderRadius.circular(20),
+//                       //   color: Colors.grey,
+//                       // ),
+//                       child: Center(child: Text(
+//                         '2022-23', style:GoogleFonts.nunitoSans(
+//                             fontSize: 18,
+//                             color: Colors.white,
+//                             ),
+//                             )
+//                             ),
+//                     ),
+//                      const SizedBox(
+//                       width: 32,
+//                     ),
+//                     Container(
+//                       width: 76,
+//                       height: 41,
+//                       // decoration: BoxDecoration(
+//                       //   borderRadius: BorderRadius.circular(20),
+//                       //   color: Colors.grey,
+//                       // ),
+//                       child: Center(child: Text(
+//                         '2021-22', style:GoogleFonts.nunitoSans(
+//                             fontSize: 18,
+//                             color: Colors.white,
+//                             ),
+//                             )
+//                             ),
+//                     ),
+//                      const SizedBox(
+//                       width: 32,
+//                     ),
+//                     Container(
+//                       width: 76,
+//                       height: 41,
+//                       // decoration: BoxDecoration(
+//                       //   borderRadius: BorderRadius.circular(20),
+//                       //   color: Colors.grey,
+//                       // ),
+//                       child: Center(child: Text(
+//                         '2020-21', style:GoogleFonts.nunitoSans(
+//                             fontSize: 18,
+//                             color: Colors.white,
+//                             ),
+//                             )
+//                             ),
+//                     ),
+//                   ]),
+//                 ),
+//               ),
+//               // ignore: prefer_const_constructors
+             
+//             const SizedBox(
+//               height: 13,
+//             ),
+
+//               SizedBox(
+//                 height: safeHeight,
+//                 width: width,
+//                 child: Expanded(child: ListView.builder(
+//                     itemCount: 9,
+//                     scrollDirection: Axis.vertical,
+//                     itemBuilder: (context, index){
+//                     //create a blogcard
+//                     BlogCard blogCard = BlogCard(imagePath: 'assets/images/blogs1.jpeg', title: 'Tanmay Lodha speaks about his internship at IFP' );
+//                     return BlogTile(
+//                       blogcard: blogCard ,
+//                     );
+//                 },)
+//               ), 
+//             ),               
+//           ],
+//         ),
+//       )
+//     );
+//   }
+// }
+

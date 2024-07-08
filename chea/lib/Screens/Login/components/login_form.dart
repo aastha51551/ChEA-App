@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:your_project/services/auth_service.dart'; // Make sure to implement this service for sending email
 
 import '../../../components/already_have_an_account_acheck.dart';
 import '../../../constants.dart';
@@ -9,16 +10,25 @@ class LoginForm extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+  void _sendPasswordResetEmail(String email) {
+    // Implement the function to send password reset email
+    AuthService.sendPasswordResetEmail(email);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final _formKey = GlobalKey<FormState>();
+    String email = '';
+
     return Form(
+      key: _formKey,
       child: Column(
         children: [
           TextFormField(
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
             cursorColor: kPrimaryColor,
-            onSaved: (email) {},
+            onSaved: (newValue) => email = newValue ?? '',
             decoration: const InputDecoration(
               hintText: "Your email",
               prefixIcon: Padding(
@@ -63,6 +73,32 @@ class LoginForm extends StatelessWidget {
                 ),
               );
             },
+          ),
+          const SizedBox(height: defaultPadding),
+          TextButton(
+            onPressed: () {
+              if (_formKey.currentState?.validate() ?? false) {
+                _formKey.currentState?.save();
+                if (email.isNotEmpty) {
+                  _sendPasswordResetEmail(email);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text("Password reset email sent"),
+                    ),
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text("Please enter your email"),
+                    ),
+                  );
+                }
+              }
+            },
+            child: const Text(
+              "Forgot Password?",
+              style: TextStyle(color: kPrimaryColor),
+            ),
           ),
         ],
       ),
