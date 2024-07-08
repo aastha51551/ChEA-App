@@ -29,14 +29,14 @@ class _ProfileState extends State<Profile> {
         selectedIndex: 3,
         onItemTapped: (int index) {
           if (index == 1) {
-            Navigator.pushNamed(
-                context, '/blog');
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/blog', (route) => false);
           } else if (index == 2)
-            Navigator.pushNamed(
-                context, '/opportunities');
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/opportunities', (route) => false);
           else if (index == 0)
-            Navigator.pushNamed(
-                context, '/home');
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/home', (route) => false);
         },
       ),
       body: SingleChildScrollView(
@@ -91,86 +91,9 @@ class _ProfileState extends State<Profile> {
                 ),
             ),
             const SizedBox(height: 20),
-            Container(
-              padding: const EdgeInsets.symmetric(vertical:20),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(40),
-                border: Border.all(
-                  color: const Color(0xff3c3838),
-                  width: 2,
-                ),
-              ),
-              child:Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: const Color(0xff3c3838),
-                      ),
-                      padding: const EdgeInsets.all(10),
-                      child: const Icon(Icons.file_copy_outlined,color: Colors.white,size: 30,)),
-                  Column(
-                    children: [
-                      Text(
-                        '1 Page Resume',
-                        style: GoogleFonts.montserrat(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                        ),
-
-                      ),
-                      Text(
-                        'Sign in with your one \npage resume here',
-                        style: GoogleFonts.montserrat(
-                          color: const Color (0xff666161),
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                          fontStyle: FontStyle.italic,
-                        ),
-                      ),
-
-
-                    ],
-                  ),
-                  TextButton(
-                      onPressed: (){
-                        setState(() {
-                          isPage1ResumeUploaded = !isPage1ResumeUploaded;
-                        });
-                      },
-                      style: TextButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                      ),
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: isPage1ResumeUploaded? const Color(0xff3c3838): null,
-
-                          borderRadius: BorderRadius.circular(15),
-                          gradient: !isPage1ResumeUploaded? const LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [Color(0xffFF7A00),Color(0xffD45151)],
-                          ): null),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 10),
-                          child: Text(isPage1ResumeUploaded?  'Uploaded':"Upload",
-                            style: GoogleFonts.montserrat(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400,
-                            fontStyle: FontStyle.italic,
-                            ),),
-                        ),
-                      ))
-                ],
-              )
-            ),
-            const SizedBox(height: 20),
-            Container(
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Container(
                 padding: const EdgeInsets.symmetric(vertical:20),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(40),
@@ -189,10 +112,11 @@ class _ProfileState extends State<Profile> {
                         ),
                         padding: const EdgeInsets.all(10),
                         child: const Icon(Icons.file_copy_outlined,color: Colors.white,size: 30,)),
+                    SizedBox(width: 20,),
                     Column(
                       children: [
                         Text(
-                          '2 Page Resume',
+                          '1 Page Resume',
                           style: GoogleFonts.montserrat(
                             color: Colors.white,
                             fontSize: 20,
@@ -216,7 +140,7 @@ class _ProfileState extends State<Profile> {
                     TextButton(
                         onPressed: (){
                           setState(() {
-                            isPage2ResumeUploaded = !isPage2ResumeUploaded;
+                            isPage1ResumeUploaded = !isPage1ResumeUploaded;
                           });
                         },
                         style: TextButton.styleFrom(
@@ -226,33 +150,34 @@ class _ProfileState extends State<Profile> {
                         ),
                         child: DecoratedBox(
                           decoration: BoxDecoration(
-                              color: isPage2ResumeUploaded? const Color(0xff3c3838): null,
+                            color: isPage1ResumeUploaded? const Color(0xff3c3838): null,
 
-                              borderRadius: BorderRadius.circular(15),
-                              gradient: !isPage2ResumeUploaded? const LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [Color(0xffFF7A00),Color(0xffD45151)],
-                              ): null),
+                            borderRadius: BorderRadius.circular(15),
+                            gradient: !isPage1ResumeUploaded? const LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [Color(0xffFF7A00),Color(0xffD45151)],
+                            ): null),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 10),
-                            child: Text(isPage2ResumeUploaded?  'Uploaded':"Upload",
+                            child: Text(isPage1ResumeUploaded?  'Uploaded':"Upload",
                               style: GoogleFonts.montserrat(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w400,
-                                fontStyle: FontStyle.italic,
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                              fontStyle: FontStyle.italic,
                               ),),
                           ),
                         ))
                   ],
                 )
+              ),
             ),
-            const SizedBox(height: 40),
-            Stack(
-              children: [
-                Container(
-                  padding: const EdgeInsets.only(left:20,top: 20,bottom: 20),
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Container(
+                  padding: const EdgeInsets.symmetric(vertical:20),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(40),
                     border: Border.all(
@@ -260,229 +185,319 @@ class _ProfileState extends State<Profile> {
                       width: 2,
                     ),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child:Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Text(
-                        'Saved',
-                        style: GoogleFonts.montserrat(
-                          color: Colors.white,
-                          fontSize: 30,
-                          fontWeight: FontWeight.w600,
-                        ),
-                        textAlign: TextAlign.start,
-                      ),
-                      const SizedBox(height: 10),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
-                                color: const Color(0xff201f1f)
-                              ),
-                              child: const Icon(Icons.favorite,color: Color(0xffd45151),size: 30,),
-
+                      Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: const Color(0xff3c3838),
+                          ),
+                          padding: const EdgeInsets.all(10),
+                          child: const Icon(Icons.file_copy_outlined,color: Colors.white,size: 30,)),
+                      SizedBox(width: 20,),
+                      Column(
+                        children: [
+                          Text(
+                            '2 Page Resume',
+                            style: GoogleFonts.montserrat(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
                             ),
-                            Expanded(
-                              child: TextButton(onPressed: (){
-                                Navigator.pushNamed(context, '/favopportunities');
-                              }, child:
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text('Favourite Opportunities',
-                                    style: GoogleFonts.montserrat(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600,
-                                    ),),
-                                  const Icon(Icons.arrow_forward_ios,color: Colors.white,)
-                                ],
-                              )),
-                            )
-                          ],
-                        ),
-                      ),
-                      const Padding(
-                        padding: const EdgeInsets.only(left:60.0),
-                        child: Divider(
-                          color: Color(0xff3c3838),
-                          thickness: 2,
 
-                        ),
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  color: const Color(0xff201f1f)
-                              ),
-                              child: const Icon(Icons.bookmark_border,color:  Colors.white,size: 30,),
-
+                          ),
+                          Text(
+                            'Sign in with your one \npage resume here',
+                            style: GoogleFonts.montserrat(
+                              color: const Color (0xff666161),
+                              fontSize: 15,
+                              fontWeight: FontWeight.w400,
+                              fontStyle: FontStyle.italic,
                             ),
-                            Expanded(
-                              child: TextButton(onPressed: (){
-                                Navigator.pushNamed(context, '/bookmarks');
-                              }, child:
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text('Bookmarked Articles',
-                                    style: GoogleFonts.montserrat(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600,
-                                    ),),
-                                  const Icon(Icons.arrow_forward_ios,color: Colors.white,)
-                                ],
-                              )),
-                            )
-                          ],
-                        ),
+                          ),
+
+
+                        ],
                       ),
+                      TextButton(
+                          onPressed: (){
+                            setState(() {
+                              isPage2ResumeUploaded = !isPage2ResumeUploaded;
+                            });
+                          },
+                          style: TextButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                          ),
+                          child: DecoratedBox(
+                            decoration: BoxDecoration(
+                                color: isPage2ResumeUploaded? const Color(0xff3c3838): null,
+
+                                borderRadius: BorderRadius.circular(15),
+                                gradient: !isPage2ResumeUploaded? const LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [Color(0xffFF7A00),Color(0xffD45151)],
+                                ): null),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 10),
+                              child: Text(isPage2ResumeUploaded?  'Uploaded':"Upload",
+                                style: GoogleFonts.montserrat(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w400,
+                                  fontStyle: FontStyle.italic,
+                                ),),
+                            ),
+                          ))
                     ],
-                  ),
-                ),
-                Positioned(
-                  left: 0,
-                  top: 25,
-                  child: Container(
-                    height: 50,
-                    width: 10,
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: Colors.amber[900],
-                    ),
-                  ),
-                )
-              ],
+                  )
+              ),
             ),
             const SizedBox(height: 40),
-            Stack(
-              children: [
-
-                Container(
-                  padding: const EdgeInsets.only(left:20,top: 20,bottom: 20),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40),
-                    border: Border.all(
-                      color: const Color(0xff3c3838),
-                      width: 2,
-                    ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'More',
-                        style: GoogleFonts.montserrat(
-                          color: Colors.white,
-                          fontSize: 30,
-                          fontWeight: FontWeight.w600,
-                        ),
-                        textAlign: TextAlign.start,
-                      ),
-                      const SizedBox(height: 10),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  color: const Color(0xff201f1f)
-                              ),
-                              child: const Icon(Icons.settings,color: Colors.white,size: 30,),
-
-                            ),
-                            Expanded(
-                              child: TextButton(onPressed: (){}, child:
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text('Settings',
-                                    style: GoogleFonts.montserrat(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600,
-                                    ),),
-                                  const Icon(Icons.arrow_forward_ios,color: Colors.white,)
-                                ],
-                              )),
-                            )
-                          ],
-                        ),
-                      ),
-                      const Padding(
-                        padding: const EdgeInsets.only(left:60.0),
-                        child: Divider(
-                          color: Color(0xff3c3838),
-                          thickness: 2,
-
-                        ),
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  color: const Color(0xff201f1f)
-                              ),
-                              child: const Icon(Icons.login,color:  Colors.white,size: 30,),
-
-                            ),
-                            Expanded(
-                              child: TextButton(onPressed: (){}, child:
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text('Log Out',
-                                    style: GoogleFonts.montserrat(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600,
-                                    ),),
-                                  const Icon(Icons.arrow_forward_ios,color: Colors.white,)
-                                ],
-                              )),
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Positioned(
-                  left: 0,
-                  top: 25,
-                  child: Container(
-                    height: 50,
-                    width: 10,
-                    padding: const EdgeInsets.all(10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Stack(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.only(left:20,top: 20,bottom: 20),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: Colors.amber[900],
+                      borderRadius: BorderRadius.circular(40),
+                      border: Border.all(
+                        color: const Color(0xff3c3838),
+                        width: 2,
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Saved',
+                          style: GoogleFonts.montserrat(
+                            color: Colors.white,
+                            fontSize: 30,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                        const SizedBox(height: 10),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  color: const Color(0xff201f1f)
+                                ),
+                                child: const Icon(Icons.favorite,color: Color(0xffd45151),size: 30,),
+
+                              ),
+                              Expanded(
+                                child: TextButton(onPressed: (){
+                                  Navigator.pushNamed(context, '/favopportunities');
+                                }, child:
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('Favourite Opportunities',
+                                      style: GoogleFonts.montserrat(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w600,
+                                      ),),
+                                    const Icon(Icons.arrow_forward_ios,color: Colors.white,)
+                                  ],
+                                )),
+                              )
+                            ],
+                          ),
+                        ),
+                        const Padding(
+                          padding: const EdgeInsets.only(left:60.0),
+                          child: Divider(
+                            color: Color(0xff3c3838),
+                            thickness: 2,
+
+                          ),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50),
+                                    color: const Color(0xff201f1f)
+                                ),
+                                child: const Icon(Icons.bookmark_border,color:  Colors.white,size: 30,),
+
+                              ),
+                              Expanded(
+                                child: TextButton(onPressed: (){
+                                  Navigator.pushNamed(context, '/bookmarks');
+                                }, child:
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('Bookmarked Articles',
+                                      style: GoogleFonts.montserrat(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w600,
+                                      ),),
+                                    const Icon(Icons.arrow_forward_ios,color: Colors.white,)
+                                  ],
+                                )),
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                )
-              ],
+                  Positioned(
+                    left: 0,
+                    top: 25,
+                    child: Container(
+                      height: 50,
+                      width: 10,
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: Colors.amber[900],
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
+            const SizedBox(height: 40),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Stack(
+                children: [
+
+                  Container(
+                    padding: const EdgeInsets.only(left:20,top: 20,bottom: 20),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(40),
+                      border: Border.all(
+                        color: const Color(0xff3c3838),
+                        width: 2,
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'More',
+                          style: GoogleFonts.montserrat(
+                            color: Colors.white,
+                            fontSize: 30,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                        const SizedBox(height: 10),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50),
+                                    color: const Color(0xff201f1f)
+                                ),
+                                child: const Icon(Icons.settings,color: Colors.white,size: 30,),
+
+                              ),
+                              Expanded(
+                                child: TextButton(onPressed: (){}, child:
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('Settings',
+                                      style: GoogleFonts.montserrat(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w600,
+                                      ),),
+                                    const Icon(Icons.arrow_forward_ios,color: Colors.white,)
+                                  ],
+                                )),
+                              )
+                            ],
+                          ),
+                        ),
+                        const Padding(
+                          padding: const EdgeInsets.only(left:60.0),
+                          child: Divider(
+                            color: Color(0xff3c3838),
+                            thickness: 2,
+
+                          ),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50),
+                                    color: const Color(0xff201f1f)
+                                ),
+                                child: const Icon(Icons.login,color:  Colors.white,size: 30,),
+
+                              ),
+                              Expanded(
+                                child: TextButton(onPressed: (){}, child:
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('Log Out',
+                                      style: GoogleFonts.montserrat(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w600,
+                                      ),),
+                                    const Icon(Icons.arrow_forward_ios,color: Colors.white,)
+                                  ],
+                                )),
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Positioned(
+                    left: 0,
+                    top: 25,
+                    child: Container(
+                      height: 50,
+                      width: 10,
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: Colors.amber[900],
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            SizedBox(height: 40,)
 
           ],
         )

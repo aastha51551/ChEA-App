@@ -29,6 +29,8 @@ class buildCard extends StatelessWidget {
                 imageUrl: imageUrl,
                 description: description,
                 isBookmarked: false,
+                title: Title,
+                date: '12/12/1200'
               ),
             ),
           );

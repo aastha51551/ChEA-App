@@ -87,24 +87,28 @@ class _CustomTabViewState extends State<CustomTabView>
           selectedIndex: -1,
           onItemTapped: (int index) {
             if (index == 0) {
-              Navigator.pushNamed(
+              Navigator.pushNamedAndRemoveUntil(
                 context,
                 '/home',
+                (route) => false,
               );
             } else if (index == 1)
-              Navigator.pushNamed(
+              Navigator.pushNamedAndRemoveUntil(
                 context,
                 '/blog',
+                (route) => false,
               );
             else if (index == 3)
-              Navigator.pushNamed(
+              Navigator.pushNamedAndRemoveUntil(
                 context,
                 '/opportunities',
+                (route) => false,
               );
             else if (index == 4)
-              Navigator.pushNamed(
+              Navigator.pushNamedAndRemoveUntil(
                 context,
                 '/profile',
+                (route) => false,
               );
           }),
       endDrawer: buildDrawer(width: MediaQuery.of(context).size.width),

@@ -9,9 +9,13 @@ class BlogPage extends StatefulWidget {
   final String imageUrl;
   final String description;
   final bool isBookmarked;
+  final String title;
+  final String date;
 
   BlogPage(
       {required this.imageUrl,
+        required this.title,
+        required this.date,
         required this.description,
         required this.isBookmarked});
 
@@ -80,6 +84,44 @@ class _BlogPageState extends State<BlogPage> {
                             image: DecorationImage(
                               image: Image.asset(widget.imageUrl).image,
                               fit: BoxFit.cover,
+                            ),
+                          ),
+                          child: Container(
+                            alignment: Alignment.bottomCenter,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    Colors.transparent,
+                                    Colors.black.withOpacity(0.7),
+                                    Colors.black,
+                                  ],
+                                )),
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 25.0),
+                              child: RichText(
+                                text: TextSpan(
+                                  style: GoogleFonts.montserrat(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w200,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: widget.title,
+                                      style: GoogleFonts.nunitoSans(
+                                        color: Colors.white,
+                                        fontSize: 32,
+                                        fontWeight: FontWeight.w700,
+                                    )),
+                                    TextSpan(
+                                      text: "\n ${widget.date}",
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
                         ),
