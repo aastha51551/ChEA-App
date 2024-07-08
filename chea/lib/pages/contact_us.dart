@@ -19,7 +19,7 @@ class _ContactUsState extends State<ContactUs>
       "items": [
         {
           "backgroundImage": "assets/images/GSec23.jpg",
-          "name": "Parth Manish Dhani",
+          "name": "Parth Manish Dani",
           "position": "DGSec",
           "email": "dgsec@che.iitb.ac.in",
           "mobilenumber": "+91 9323294005"
@@ -51,7 +51,7 @@ class _ContactUsState extends State<ContactUs>
           "mobilenumber": "+91 9465500286"
         },{
           "backgroundImage": "assets/images/JSecA22.webp",
-          "name": "Parth Manish Dhani",
+          "name": "Parth Manish Dani",
           "position": "JSec Academics Affairs",
           "email": "200020090@iitb.ac.in",
           "mobilenumber": "+91 9323294005",

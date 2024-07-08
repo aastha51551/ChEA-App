@@ -44,10 +44,10 @@ class _OpportunitiesState extends State<Opportunities>
         selectedIndex: 2,
         onItemTapped: (int index) {
           if (index == 1) {
-            Navigator.pushNamed(context, '/blog');
+            Navigator.pushNamedAndRemoveUntil(context, '/blog', (route) => false);
           } else if (index == 0)
-            Navigator.pushNamed(context, '/home');
-          else if (index == 3) Navigator.pushNamed(context, '/profile');
+            Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+          else if (index == 3) Navigator.pushNamedAndRemoveUntil(context, '/profile', (route) => false);
         },
       ),
       appBar: AppBar(
@@ -73,7 +73,7 @@ class _OpportunitiesState extends State<Opportunities>
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: SizedBox(
-                width: MediaQuery.of(context).size.width * 0.7,
+                width: MediaQuery.of(context).size.width * 0.8,
                 child: SearchBar(
                   padding: const WidgetStatePropertyAll(
                       EdgeInsets.symmetric(horizontal: 20)),
@@ -102,8 +102,6 @@ class _OpportunitiesState extends State<Opportunities>
             const SizedBox(
               width: 10,
             ),
-            const Icon(Icons.filter_alt_outlined,
-                color: Colors.white, size: 38),
           ],
         ),
         const SizedBox(height: 20),

@@ -35,7 +35,7 @@ class Opportunities_Detail_Page extends StatelessWidget {
           if (index == 1) {
             Navigator.pushNamed(context, '/blog');
           } else if (index == 0)
-            Navigator.pushNamed(context, '/');
+            Navigator.pushNamed(context, '/home');
           else if (index == 3) Navigator.pushNamed(context, '/profile');
         },
       ),
@@ -181,40 +181,41 @@ class Opportunities_Detail_Page extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Center(
-                        child: ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              padding: EdgeInsets.zero,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50),
-                              ),
-                            ),
-                            child: Container(
-                              alignment: Alignment.center,
-                              width: 150,
-                              height: 50,
-                              decoration: BoxDecoration(
+                        child: SizedBox(
+                          width: 150,
+                          child: ElevatedButton(
+                              onPressed: () {},
+                              style: ElevatedButton.styleFrom(
+                                padding: EdgeInsets.zero,
+                                shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(50),
-                                  gradient: LinearGradient(
-                                      colors: const [
-                                        Color(0xffff7a00),
-                                        Color(0xffd45151)
-                                      ],
-                                      begin: Alignment.centerLeft,
-                                      end: Alignment.centerRight)),
-                              child: Text(
-                                'Apply Now',
-                                style: GoogleFonts.montserrat(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontStyle: FontStyle.italic,
-                                    fontWeight: FontWeight.w700),
+                                ),
                               ),
-                            )),
+                              child: Container(
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50),
+                                    gradient:const LinearGradient(
+                                        colors:  [
+                                          Color(0xffff7a00),
+                                          Color(0xffd45151)
+                                        ],
+                                        begin: Alignment.centerLeft,
+                                        end: Alignment.centerRight)),
+                                child: Text(
+                                  'Apply Now',
+                                  style: GoogleFonts.montserrat(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontStyle: FontStyle.italic,
+                                      fontWeight: FontWeight.w700),
+                                ),
+                              )),
+                        ),
                       ),
                     ],
                   ),

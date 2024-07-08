@@ -49,46 +49,134 @@ class _BlogsPageState extends State<BlogsPage>
     var safeHeight = height - padding.top - padding.bottom;
     
     return Scaffold(
-      body: CustomTabView(pageTitle: 'Blogs', tabs: [
-        TabData(
-          title: '2023 - 2024',
-          content: Container(
-            color: Color(defaultBackground),
-                height: safeHeight,
-                width: width,
-                child: Expanded(child: ListView.builder(
-                    itemCount: 9,
-                    scrollDirection: Axis.vertical,
-                    itemBuilder: (context, index){
-                    //create a blogcard
-                    BlogCard blogCard = BlogCard(imagePath: 'assets/images/blogs1.jpeg', title: 'Tanmay Lodha speaks about his internship at IFP' );
-                    
-                    return BlogTile(
-                      blogcard: blogCard ,
-                    );
-                },)
-              ), 
-            ),   
-          ),
 
-        TabData(
-          title: '2022 - 2023',
-          content: Container(
-            color: Color(defaultBackground),
+      appBar: AppBar(
+        toolbarHeight: 80,
+        automaticallyImplyLeading: false,
+        title: Padding(
+          padding: const EdgeInsets.only(left: 20.0, top: 20),
+          child: Text(
+            'News',
+            style: GoogleFonts.nunitoSans(
+              fontSize: 48,
+              fontWeight: FontWeight.w700,
+              color: Colors.white,
+            ),
           ),
         ),
-
-        TabData(
-          title: '2018 - 2019',
-          content: Container(
-            color: Color(defaultBackground),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 15.0, top: 20),
+            child: Builder(builder: (context) {
+              return IconButton(
+                  onPressed: () {
+                    Scaffold.of(context).openEndDrawer();
+                  },
+                  icon: SvgPicture.asset(
+                    'assets/icons/Hamburger_LG.svg',
+                    height: 40,
+                  ));
+            }),
           ),
-        ),
+        ],
+        backgroundColor: Color(defaultBackground),
+      ),
+      body: const BlogPage(),
+      bottomNavigationBar: MyNavigationBar(
+          selectedIndex: 1,
+          onItemTapped: (int index) {
+            if (index == 0) {
+              Navigator.pushNamedAndRemoveUntil(
+                  context, '/home', (route) => false);
+            } else if (index == 2)
+              Navigator.pushNamedAndRemoveUntil(
+                  context, '/opportunities', (route) => false);
+            else if (index == 3)
+              Navigator.pushNamedAndRemoveUntil(
+                  context, '/profile', (route) => false);
+          }),
+      floatingActionButton: ChEAGPT(context),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      endDrawer: buildDrawer(width: MediaQuery.of(context).size.width),
+    );
+  }
+}
 
-        TabData(
-          title: '2017 - 2018',
-          content: Container(
-            color: Color(defaultBackground),
+class BlogPage extends StatelessWidget {
+  const BlogPage({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        color: Color(defaultBackground),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 15.0, left: 20, right: 20),
+                child: SearchBar(
+                  hintText: 'Search...',
+                  padding:
+                  const WidgetStatePropertyAll(EdgeInsets.only(left: 20)),
+                  leading: (const Icon(
+                    Icons.search,
+                    color: Colors.white,
+                    size: 32,
+                  )),
+                  textStyle: WidgetStatePropertyAll(GoogleFonts.montserrat(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white)),
+                  elevation: const WidgetStatePropertyAll(0),
+                  backgroundColor:
+                  const WidgetStatePropertyAll(Color(0xff3c3838)),
+                ),
+              ),
+              SizedBox(
+                height: 300,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 15.0),
+                  child: ListView(scrollDirection: Axis.horizontal, children: [
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Container(
+                      width: 300,
+                      height: 300,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.grey,
+                      ),
+                      child: const Center(child: Text('Trad Day 2k24')),
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Container(
+                      width: 300,
+                      height: 300,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.grey,
+                      ),
+                      child: const Center(child: Text('Trad Day 2k24')),
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                  ]),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: EventGrid(),
+              )
+            ],
           ),
         ),
         
