@@ -87,7 +87,7 @@ class _BlogPageState extends State<BlogPage> {
                             ),
                           ),
                           child: Container(
-                            alignment: Alignment.bottomCenter,
+                            alignment: Alignment.bottomLeft,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
                                 gradient: LinearGradient(
@@ -102,18 +102,20 @@ class _BlogPageState extends State<BlogPage> {
                             child: Padding(
                               padding: const EdgeInsets.only(bottom: 25.0),
                               child: RichText(
+                                textAlign: TextAlign.left,
                                 text: TextSpan(
                                   style: GoogleFonts.montserrat(
                                     color: Colors.white,
                                     fontSize: 16,
                                     fontWeight: FontWeight.w200,
+                                    fontStyle: FontStyle.italic,
                                   ),
                                   children: [
                                     TextSpan(
                                       text: widget.title,
                                       style: GoogleFonts.nunitoSans(
                                         color: Colors.white,
-                                        fontSize: 32,
+                                        fontSize: 28,
                                         fontWeight: FontWeight.w700,
                                     )),
                                     TextSpan(
