@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last, camel_case_types
 import 'package:chea/pages/blogs.dart';
-import 'package:chea/pages/blogs_pages/blogPage.dart';
+// import 'package:chea/pages/blogs_pages/blogPage.dart';
 import 'package:chea/pages/blogs_pages/internblog.dart';
 import 'package:chea/pages/cheagpt.dart';
 import 'package:chea/pages/contact_us.dart';
@@ -78,7 +78,7 @@ class _MyAppState extends State<MyApp> {
       routes: {
         '/home': (context) => const Home(),
         '/events': (context) => const Events(),
-        '/blog': (context) => InternBlog(),
+        '/blog': (context) => Blogs(),
         '/profile': (context) => const Profile(),
         '/opportunities': (context) => const Opportunities(),
         '/ai': (context) => const ChEAGPT(),
