@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:your_project/services/auth_service.dart'; // Make sure to implement this service for sending email
+import 'package:your_project/services/auth_service.dart'; // Make sure to implement this service for sending email
 
 import '../../../components/already_have_an_account_acheck.dart';
 import '../../../constants.dart';
@@ -12,7 +12,7 @@ class LoginForm extends StatelessWidget {
 
   void _sendPasswordResetEmail(String email) {
     // Implement the function to send password reset email
-    // AuthService.sendPasswordResetEmail(email);
+    AuthService.sendPasswordResetEmail(email);
   }
 
   @override
