@@ -16,7 +16,6 @@ class UserSignupSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         # print(validated_data)
         email = validated_data['email'].lower()
-        print(email)
         roll_no = validated_data['roll_no'].upper()
         # print(Student.objects.get(ldap_id = email))
         try:
@@ -35,3 +34,11 @@ class UserSignupSerializer(serializers.ModelSerializer):
         )
         return user
     
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['email', 'roll_no', 'name', 'mobile_number', 'resume1', 'resume2']
+        extra_kwargs = {
+            'password': {'write_only': True}
+        }
+        

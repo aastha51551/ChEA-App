@@ -5,16 +5,22 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.contrib.auth import get_user_model
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from .serializers import UserSignupSerializer
-from django.contrib.auth import authenticate, login, logout
+from rest_framework.decorators import api_view,permission_classes
+from rest_framework.permissions import IsAuthenticated
+from .serializers import UserSignupSerializer, UserSerializer
+from django.contrib.auth import authenticate,get_user_model
+from rest_framework.authtoken.models import Token
+
 
 @api_view(['POST'])
 def signup(request):
     serializer = UserSignupSerializer(data=request.data)
     if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        user = serializer.save()
+        token, created = Token.objects.get_or_create(user=user)
+        data = serializer.data
+        data['token'] = token.key
+        return Response(data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
@@ -23,13 +29,13 @@ def userlogin(request):
     password = request.data.get('password')
     user = authenticate(email=email, password=password)
     if user is not None:
-        login(request, user)
-        return Response(status=status.HTTP_200_OK)
+        token,_ = Token.objects.get_or_create(user=user)
+        return Response({'token':token.key},status=status.HTTP_200_OK)
     return Response(status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
 def userlogout(request):
-    logout(request)
+    request.user.auth_token.delete()
     return Response(status=status.HTTP_200_OK)
 
 @api_view(['POST'])
@@ -67,3 +73,16 @@ def reset_password(request):
         user.set_password(new_password)
         user.save()
         return Response({'message':"Password reset successfully"},status=status.HTTP_200_OK)
+
+    return Response({'message':"Invalid reset link"},status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def fet_user_data(request):
+    User = get_user_model()
+    try:
+        user = request.user
+        serializer = UserSerializer(user)
+        return Response(serializer.data,status=status.HTTP_200_OK)
+    except User.DoesNotExist:
+        return Response({'message':"User does not exist"},status=status.HTTP_400_BAD_REQUEST)

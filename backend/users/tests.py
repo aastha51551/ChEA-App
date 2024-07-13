@@ -37,8 +37,18 @@ class UserAccountTests(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
     
     def test_logout(self):
-        url = '/logout/'
-        response = self.client.post(url)
+        url = '/signup/'
+        user_data = {
+            'email': '23b0354@iitb.ac.in',
+            'password': 'testpassword123',
+            'roll_no': '23b0354'
+        }
+        response = self.client.post(url,user_data, format='json')
+        token = response.data['token']
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + token)
+        logout_url = '/logout/'
+        response = self.client.post(logout_url)
+        print(response)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         
 
