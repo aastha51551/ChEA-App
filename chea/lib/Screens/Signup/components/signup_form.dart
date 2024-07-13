@@ -1,8 +1,11 @@
+import 'package:chea/utils/auth_service.dart';
 import 'package:flutter/material.dart';
 
 import '../../../components/already_have_an_account_acheck.dart';
 import '../../../constants.dart';
 import '../../Login/login_screen.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({
@@ -19,12 +22,43 @@ class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _rePasswordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _rollNumberController = TextEditingController();
 
   @override
   void dispose() {
     _passwordController.dispose();
     _rePasswordController.dispose();
+    _emailController.dispose();
+    _rollNumberController.dispose();
     super.dispose();
+  }
+
+  Future<void> _signUp() async{
+    final response = await http.post(
+      Uri.parse('http://10.0.2.2:8000/signup/'),
+      headers: <String,String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String,String>{
+        'email': _emailController.text,
+        'roll_no': _rollNumberController.text,
+        'password': _passwordController.text,
+      }),
+    );
+    if(response.statusCode == 201){
+      String token = jsonDecode(response.body)['token'];
+      await AuthService().setToken(token);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Sign Up Successful!'))
+      );
+      Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Sign Up Failed!: ${response.body}'))
+      );
+    }
   }
 
   @override
@@ -34,6 +68,7 @@ class _SignUpFormState extends State<SignUpForm> {
       child: Column(
         children: [
           TextFormField(
+            controller: _emailController,
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
             cursorColor: kPrimaryColor,
@@ -55,6 +90,7 @@ class _SignUpFormState extends State<SignUpForm> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: defaultPadding),
             child: TextFormField(
+              controller: _rollNumberController,
               keyboardType: TextInputType.number,
               textInputAction: TextInputAction.done,
               cursorColor: kPrimaryColor,
@@ -143,7 +179,7 @@ class _SignUpFormState extends State<SignUpForm> {
           ElevatedButton(
             onPressed: () {
               if (_formKey.currentState?.validate() ?? false) {
-                // Process data
+                _signUp();
               }
             },
             child: Text("Sign Up".toUpperCase()),
