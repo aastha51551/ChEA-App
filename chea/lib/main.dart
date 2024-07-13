@@ -25,23 +25,28 @@ import 'package:chea/pages/profilePage/BookmarkedArticles.dart';
 import 'package:chea/pages/profilePage/FavOpportunities.dart';
 import 'package:chea/pages/proflie.dart';
 import 'package:chea/pages/publication.dart';
+import 'package:chea/utils/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:chea/Screens/Welcome/welcome_screen.dart';
 import 'package:chea/constants.dart';
 
 int defaultBackground = 0xff08050c;
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+
+  MyApp({super.key,});
+
 
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
+  late final Future<bool> _isLoggedIn;
+  _MyAppState() : _isLoggedIn = AuthService.isLoggedIn();
   @override
   Widget build(BuildContext context) {
     // double width = MediaQuery.of(context).size.width;
@@ -74,7 +79,26 @@ class _MyAppState extends State<MyApp> {
               borderSide: BorderSide.none,
             ),
           )),
-      home: const WelcomeScreen(),
+      home: FutureBuilder<bool>(
+        future: _isLoggedIn,
+        builder: (context,snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          }
+          if (snapshot.hasData) {
+            if (snapshot.data!) {
+              return const Home();
+            } else {
+              return const WelcomeScreen();
+            }
+          }
+          return const WelcomeScreen();
+        },
+      ),
       routes: {
         '/home': (context) => const Home(),
         '/events': (context) => const Events(),

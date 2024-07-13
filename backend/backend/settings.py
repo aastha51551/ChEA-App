@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
+    'rest_framework',
+    'corsheaders',
+    'rest_framework.authtoken',
     'myapp',
 ]
 
@@ -51,7 +54,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+ALLOWED_HOSTS = ['10.0.2.2', '192.168.1.2', 'localhost', '127.0.0.1']
+
+AUTH_USER_MODEL = 'users.User'
 
 ROOT_URLCONF = 'backend.urls'
 
@@ -103,6 +111,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
