@@ -8,6 +8,7 @@ class Opportunity(models.Model):
     domain = models.CharField(max_length=100)
     role = models.CharField(max_length=100)
     description = models.TextField()
+    OpportunityType = models.CharField(max_length=100,choices=[('Internship','Internship'),('Placement','Placement'),('Projects','Projects')],default='Internship')
 
     def __str__(self):
         return self.title

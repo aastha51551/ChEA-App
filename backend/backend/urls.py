@@ -19,10 +19,12 @@ from django.urls import path,include
 from users.views import signup, userlogin, userlogout
 
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('signup/', signup),
     path('login/', userlogin),
     path('logout/', userlogout),
     path('users/', include('users.urls')),
+    path('opportunities/', include('myapp.urls')),
 ]
