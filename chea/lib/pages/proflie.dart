@@ -1,6 +1,7 @@
 // ignore_for_file: curly_braces_in_flow_control_structures
 import 'dart:convert';
-
+import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:chea/utils/bottom_navbar.dart';
 import 'package:chea/utils/cheagpt.dart';
@@ -11,6 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../utils/auth_service.dart';
 
 int defaultBackground = 0xff09050d;
+
 
 class UserService {
   static const String url = 'http://10.0.2.2:8000/users/data/';
@@ -34,7 +36,9 @@ class UserService {
     }
   }
 
-  Future<void> performLogout(BuildContext context) async{
+
+
+  Future<void> performLogout(BuildContext context) async {
     await AuthService().logout();
     Navigator.of(context).pushNamedAndRemoveUntil('/logout', (route) => false);
   }
@@ -56,13 +60,14 @@ class _ProfileState extends State<Profile> {
     super.initState();
     getUserData();
   }
+
   String name = 'Steve';
-  String email= '22b441@iitb.ac.in';
-  String rollNumber= '';
-  bool isPage1ResumeUploaded= false;
+  String email = '22b441@iitb.ac.in';
+  String rollNumber = '';
+  bool isPage1ResumeUploaded = false;
   bool isPage2ResumeUploaded = false;
 
-   Future<void> getUserData() async {
+  Future<void> getUserData() async {
     userData = await userService.getUserData();
     if (userData != null) {
       setState(() {
@@ -75,7 +80,35 @@ class _ProfileState extends State<Profile> {
     } else {
       print('Error fetching user data');
     }
-    
+  }
+
+  Future<void> _uploadFile(String resumeType,File file) async{
+    final token = await AuthService().getToken();
+    String url = 'http://10.0.2.2:8000/users/$resumeType/';
+    final request = http.MultipartRequest('POST', Uri.parse(url));
+    request.headers['Authorization'] = 'Token $token';
+    request.files.add(await http.MultipartFile.fromPath('file', file.path));
+    final response = await request.send();
+    if(response.statusCode == 200){
+      setState(() {
+        if(resumeType == 'resume1'){
+          isPage1ResumeUploaded = true;
+        }else{
+          isPage2ResumeUploaded = true;
+        }
+      });
+    }
+  }
+
+  Future<void> _pickAndUploadResume(String resumeType) async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+    );
+    if (result != null) {
+      File file = File(result.files.single.path!);
+      await _uploadFile(resumeType,file);
+    }
   }
 
   @override
@@ -153,7 +186,7 @@ class _ProfileState extends State<Profile> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 20),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(40),
                   border: Border.all(
@@ -166,25 +199,27 @@ class _ProfileState extends State<Profile> {
                   children: [
                     Container(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(40),
                           color: const Color(0xff3c3838),
                         ),
                         padding: const EdgeInsets.all(10),
                         child: const Icon(
                           Icons.file_copy_outlined,
                           color: Colors.white,
-                          size: 30,
+                          size: 20,
                         )),
                     const SizedBox(
-                      width: 20,
+                      width: 5,
                     ),
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           '1 Page Resume',
+                          textAlign: TextAlign.left,
                           style: GoogleFonts.montserrat(
                             color: Colors.white,
-                            fontSize: 18,
+                            fontSize: 16,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -192,7 +227,7 @@ class _ProfileState extends State<Profile> {
                           'Sign in with your one \npage resume here',
                           style: GoogleFonts.montserrat(
                             color: const Color(0xff666161),
-                            fontSize: 15,
+                            fontSize: 14,
                             fontWeight: FontWeight.w400,
                             fontStyle: FontStyle.italic,
                           ),
@@ -202,7 +237,8 @@ class _ProfileState extends State<Profile> {
                     TextButton(
                         onPressed: () {
                           setState(() {
-                            isPage1ResumeUploaded = !isPage1ResumeUploaded;
+                            if(!isPage1ResumeUploaded)
+                              _pickAndUploadResume('resume1');
                           });
                         },
                         style: TextButton.styleFrom(
@@ -228,12 +264,12 @@ class _ProfileState extends State<Profile> {
                                   : null),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 20.0, vertical: 10),
+                                horizontal: 15.0, vertical: 10),
                             child: Text(
                               isPage1ResumeUploaded ? 'Uploaded' : "Upload",
                               style: GoogleFonts.montserrat(
                                 color: Colors.white,
-                                fontSize: 16,
+                                fontSize: 14,
                                 fontWeight: FontWeight.w400,
                                 fontStyle: FontStyle.italic,
                               ),
@@ -247,7 +283,7 @@ class _ProfileState extends State<Profile> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 20),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(40),
                   border: Border.all(
@@ -260,25 +296,26 @@ class _ProfileState extends State<Profile> {
                   children: [
                     Container(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(40),
                           color: const Color(0xff3c3838),
                         ),
                         padding: const EdgeInsets.all(10),
                         child: const Icon(
                           Icons.file_copy_outlined,
                           color: Colors.white,
-                          size: 30,
+                          size: 20,
                         )),
-                    SizedBox(
-                      width: 20,
+                    const SizedBox(
+                      width: 5,
                     ),
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           '2 Page Resume',
                           style: GoogleFonts.montserrat(
                             color: Colors.white,
-                            fontSize: 18,
+                            fontSize: 16,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -286,7 +323,7 @@ class _ProfileState extends State<Profile> {
                           'Sign in with your one \npage resume here',
                           style: GoogleFonts.montserrat(
                             color: const Color(0xff666161),
-                            fontSize: 15,
+                            fontSize: 14,
                             fontWeight: FontWeight.w400,
                             fontStyle: FontStyle.italic,
                           ),
@@ -296,7 +333,8 @@ class _ProfileState extends State<Profile> {
                     TextButton(
                         onPressed: () {
                           setState(() {
-                            isPage2ResumeUploaded = !isPage2ResumeUploaded;
+                            if(!isPage2ResumeUploaded)
+                              _pickAndUploadResume('resume2');
                           });
                         },
                         style: TextButton.styleFrom(
@@ -322,12 +360,12 @@ class _ProfileState extends State<Profile> {
                                   : null),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 20.0, vertical: 10),
+                                horizontal: 15.0, vertical: 10),
                             child: Text(
                               isPage2ResumeUploaded ? 'Uploaded' : "Upload",
                               style: GoogleFonts.montserrat(
                                 color: Colors.white,
-                                fontSize: 16,
+                                fontSize: 14,
                                 fontWeight: FontWeight.w400,
                                 fontStyle: FontStyle.italic,
                               ),
@@ -409,7 +447,7 @@ class _ProfileState extends State<Profile> {
                         ),
                       ),
                       const Padding(
-                        padding: const EdgeInsets.only(left: 60.0),
+                        padding: EdgeInsets.only(left: 60.0),
                         child: Divider(
                           color: Color(0xff3c3838),
                           thickness: 2,
@@ -546,7 +584,7 @@ class _ProfileState extends State<Profile> {
                         ),
                       ),
                       const Padding(
-                        padding: const EdgeInsets.only(left: 60.0),
+                        padding: EdgeInsets.only(left: 60.0),
                         child: Divider(
                           color: Color(0xff3c3838),
                           thickness: 2,
@@ -614,7 +652,7 @@ class _ProfileState extends State<Profile> {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 40,
           )
         ],
