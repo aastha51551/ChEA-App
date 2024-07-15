@@ -55,6 +55,6 @@ class AuthService {
           'Content-Type': 'application/json; charset=UTF-8',
         });
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('isLoggedIn', false);
+    await prefs.clear();
   }
 }

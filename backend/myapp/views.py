@@ -49,3 +49,12 @@ def remove_favorite_opportunity(request):
         return Response({'message': 'Opportunity not found.'}, status=status.HTTP_404_NOT_FOUND)
     except FavoriteOpportunity.DoesNotExist:
         return Response({'message': 'Favorite opportunity not found.'}, status=status.HTTP_404_NOT_FOUND)
+    
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_favorites(request):
+    user = request.user
+    favorites = FavoriteOpportunity.objects.filter(user=user)
+    opportunities = [favorite.opportunity for favorite in favorites]
+    serializer = OpportunitiesSerializer(opportunities,many=True, context={'always_favourite': True})
+    return Response(serializer.data,status=status.HTTP_200_OK)

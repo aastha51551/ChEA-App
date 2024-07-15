@@ -34,7 +34,7 @@ class Opportunity {
       required this.domain,
       required this.role,
       required this.opportunityType,
-      this.isFavourite = false,
+      required this.isFavourite,
       required this.id,});
 
   static String formatStipend(String stipend) {
@@ -63,6 +63,7 @@ class Opportunity {
         description: json['description'],
         domain: json['domain'],
         role: json['role'],
+        isFavourite: json['isFavourite'] ?? false,
         opportunityType: json['OpportunityType']);
   }
 }
