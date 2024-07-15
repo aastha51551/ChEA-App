@@ -23,19 +23,20 @@ class Opportunity {
   final String domain;
   final String role;
   final String opportunityType;
-  bool isFavourite ;
+  bool isFavourite;
 
-  Opportunity(
-      {required this.title,
-        required this.stipend,
-      required this.location,
-      required this.lastDateOfApply,
-      required this.description,
-      required this.domain,
-      required this.role,
-      required this.opportunityType,
-      required this.isFavourite,
-      required this.id,});
+  Opportunity({
+    required this.title,
+    required this.stipend,
+    required this.location,
+    required this.lastDateOfApply,
+    required this.description,
+    required this.domain,
+    required this.role,
+    required this.opportunityType,
+    required this.isFavourite,
+    required this.id,
+  });
 
   static String formatStipend(String stipend) {
     Map<String, String> currencySymbols = {
@@ -70,12 +71,12 @@ class Opportunity {
 
 Future<List<Opportunity>> getOpportunities() async {
   final token = await AuthService().getToken();
-  final response = await http
-      .get(Uri.parse('http://10.0.2.2:8000/opportunities/opportunities/'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': 'Token $token',
-      },
+  final response = await http.get(
+    Uri.parse('http://10.0.2.2:8000/opportunities/opportunities/'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'Token $token',
+    },
   );
   if (response.statusCode == 200) {
     List jsonResponse = json.decode(response.body);
@@ -90,9 +91,7 @@ Future<List<Opportunity>> getOpportunities() async {
 
 Future<void> toggleFavorite(Opportunity opportunity) async {
   final token = await AuthService().getToken();
-  final endpoint = opportunity.isFavourite
-      ? 'remove_favorite'
-      : 'add_favorite';
+  final endpoint = opportunity.isFavourite ? 'remove_favorite' : 'add_favorite';
   final response = await http.post(
     Uri.parse('http://10.0.2.2:8000/opportunities/$endpoint/'),
     headers: <String, String>{
@@ -103,7 +102,7 @@ Future<void> toggleFavorite(Opportunity opportunity) async {
       'opportunity_id': opportunity.id,
     }),
   );
-  if(response.statusCode == 201 || response.statusCode == 200)
+  if (response.statusCode == 201 || response.statusCode == 200)
     opportunity.isFavourite = !opportunity.isFavourite;
   else
     throw Exception('Failed to toggle favorite');
@@ -119,23 +118,45 @@ class Opportunities extends StatefulWidget {
 class _OpportunitiesState extends State<Opportunities>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  late TextEditingController _searchController;
   List<Opportunity> opportunities = [];
+  List<Opportunity> filteredOpportunities = [];
   bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
+    _searchController = TextEditingController();
     getOpportunities().then((value) {
       setState(() {
         opportunities = value;
+        filteredOpportunities = opportunities;
         _isLoading = false;
+      });
+    });
+
+    _searchController.addListener(() {
+      setState(() {
+        if (_searchController.text.isEmpty) {
+          filteredOpportunities = opportunities;
+        } else {
+          filteredOpportunities = filterOpportunities(_searchController.text);
+        }
       });
     });
   }
 
+  List<Opportunity> filterOpportunities(String query) {
+    if (query.isEmpty) return filteredOpportunities;
+    return filteredOpportunities
+        .where((opportunity) =>
+            opportunity.title.toLowerCase().contains(query.toLowerCase()))
+        .toList();
+  }
+
   List<Opportunity> getOpportunitiesByType(String type) {
-    return opportunities
+    return filteredOpportunities
         .where((opportunity) => opportunity.opportunityType == type)
         .toList();
   }
@@ -169,6 +190,7 @@ class _OpportunitiesState extends State<Opportunities>
   @override
   void dispose() {
     _tabController.dispose();
+    _searchController.dispose();
     super.dispose();
   }
 
@@ -218,9 +240,15 @@ class _OpportunitiesState extends State<Opportunities>
               child: SizedBox(
                 width: MediaQuery.of(context).size.width * 0.8,
                 child: SearchBar(
+                  controller: _searchController,
                   padding: const WidgetStatePropertyAll(
                       EdgeInsets.symmetric(horizontal: 20)),
                   hintText: 'Search...',
+                  textStyle: WidgetStatePropertyAll(GoogleFonts.montserrat(
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      fontStyle: FontStyle.italic)),
                   elevation: const WidgetStatePropertyAll(0),
                   hintStyle: WidgetStatePropertyAll(GoogleFonts.montserrat(
                       color: Colors.white,
