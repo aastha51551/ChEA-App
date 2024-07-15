@@ -4,11 +4,77 @@ import 'package:chea/utils/bottom_navbar.dart';
 import 'package:chea/utils/cheagpt.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 import 'opportunities_component/opportunitiesCard.dart';
 import 'opportunities_component/opportunitiesPage.dart';
 
 int defaultBackground = 0xff08050c;
+
+class Opportunity {
+  final String title;
+  final String stipend;
+  final String location;
+  final String lastDateOfApply;
+  final String description;
+  final String domain;
+  final String role;
+  final String opportunityType;
+  final bool isFavourite = false;
+
+  Opportunity(
+      {required this.title,
+      required this.stipend,
+      required this.location,
+      required this.lastDateOfApply,
+      required this.description,
+      required this.domain,
+      required this.role,
+      required this.opportunityType});
+
+  static String formatStipend(String stipend) {
+    Map<String, String> currencySymbols = {
+      'â¹': '\u20B9',
+      '€': '\u20AC',
+      '\$': '\u0024',
+      // Add more currency symbols and their Unicode characters if needed
+    };
+
+    for (var symbol in currencySymbols.keys) {
+      if (stipend.contains(symbol)) {
+        stipend = stipend.replaceAll(symbol, currencySymbols[symbol]!);
+      }
+    }
+    return stipend;
+  }
+
+  factory Opportunity.fromJson(Map<String, dynamic> json) {
+    return Opportunity(
+        title: json['title'],
+        stipend: formatStipend(json['stipend']),
+        location: json['location'],
+        lastDateOfApply: json['lastDateOfApply'],
+        description: json['description'],
+        domain: json['domain'],
+        role: json['role'],
+        opportunityType: json['OpportunityType']);
+  }
+}
+
+Future<List<Opportunity>> getOpportunities() async {
+  final response = await http
+      .get(Uri.parse('http://10.0.2.2:8000/opportunities/opportunities/'));
+  if (response.statusCode == 200) {
+    List jsonResponse = json.decode(response.body);
+    // print(jsonResponse);
+    return jsonResponse
+        .map((opportunity) => Opportunity.fromJson(opportunity))
+        .toList();
+  } else {
+    throw Exception('Failed to load opportunities');
+  }
+}
 
 class Opportunities extends StatefulWidget {
   const Opportunities({super.key});
@@ -20,11 +86,55 @@ class Opportunities extends StatefulWidget {
 class _OpportunitiesState extends State<Opportunities>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  List<Opportunity> opportunities = [];
+  bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
+    getOpportunities().then((value) {
+      setState(() {
+        opportunities = value;
+        _isLoading = false;
+      });
+    });
+  }
+
+  List<Opportunity> getOpportunitiesByType(String type) {
+    return opportunities
+        .where((opportunity) => opportunity.opportunityType == type)
+        .toList();
+  }
+
+  Widget _buildOpportunitiesList(List<Opportunity> opportunities) {
+    return ListView.builder(
+        itemCount: opportunities.length,
+        itemBuilder: (context, index) {
+          final opportunity = opportunities[index];
+          return OpportunitiesCard(
+            title: opportunity.title,
+            stipend: opportunity.stipend,
+            location: opportunity.location,
+            lastDateOfApply: opportunity.lastDateOfApply,
+            isFavourite: opportunity.isFavourite,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Opportunities_Detail_Page(
+                    title: opportunity.title,
+                    stipend: opportunity.stipend,
+                    location: opportunity.location,
+                    domain: opportunity.domain,
+                    role: opportunity.role,
+                    description: opportunity.description,
+                  ),
+                ),
+              );
+            },
+          );
+        });
   }
 
   @override
@@ -44,10 +154,14 @@ class _OpportunitiesState extends State<Opportunities>
         selectedIndex: 2,
         onItemTapped: (int index) {
           if (index == 1) {
-            Navigator.pushNamedAndRemoveUntil(context, '/blog', (route) => false);
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/blog', (route) => false);
           } else if (index == 0)
-            Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
-          else if (index == 3) Navigator.pushNamedAndRemoveUntil(context, '/profile', (route) => false);
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/home', (route) => false);
+          else if (index == 3)
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/profile', (route) => false);
         },
       ),
       appBar: AppBar(
@@ -133,7 +247,7 @@ class _OpportunitiesState extends State<Opportunities>
               ),
               Tab(
                 child: Text(
-                  'Project',
+                  'Projects',
                   style: GoogleFonts.nunitoSans(
                       color: Colors.white,
                       fontSize: 20,
@@ -143,119 +257,18 @@ class _OpportunitiesState extends State<Opportunities>
             ]),
         Expanded(
           child: TabBarView(controller: _tabController, children: [
-            SingleChildScrollView(
-              child: Container(
-                color: Color(defaultBackground),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 20,
-                    ),
-                    OpportunitiesCard(
-                      title: 'BASF',
-                      stipend: 'EUR 1000/-',
-                      location: 'Berlin,GER',
-                      lastDateOfApply: '03/07/2024',
-                      isFavourite: true,
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Opportunities_Detail_Page(
-                              title: 'BASF',
-                              stipend: 'EUR 1000/-',
-                              location: 'Berlin,GER',
-                              domain: 'Agrochemicals',
-                              role: 'Intern',
-                              description:
-                                  'BASF is a German multinational chemical company and the largest chemical producer in the world. The BASF Group comprises subsidiaries and joint ventures in more than 80 countries and operates six integrated production sites and 390 other production sites in Europe, Asia, Australia, the Americas and Africa. Its headquarters is located in Ludwigshafen, Germany. BASF has customers in over 190 countries and supplies products to a wide variety of industries. Despite its size and global presence, BASF has received relatively little public attention since it abandoned manufacturing and selling BASF-branded consumer electronics products in the 1990s.',
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                    OpportunitiesCard(
-                      title: 'DRL',
-                      stipend: 'INR 75,000',
-                      location: 'Hyderabad,IND',
-                      lastDateOfApply: '03/07/2024',
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Opportunities_Detail_Page(
-                              title: 'DRL',
-                              stipend: 'INR 75,000',
-                              location: 'Hyderabad,IND',
-                              domain: 'Pharmaceuticals',
-                              role: 'Intern',
-                              description:
-                                  'Dr. Reddy\'s Laboratories is an Indian multinational pharmaceutical company based in Hyderabad, Telangana, India. The company was founded by Anji Reddy, who previously worked in the mentor institute Indian Drugs and Pharmaceuticals Limited, of Hyderabad, India. Dr. Reddy\'s manufactures and markets a wide range of pharmaceuticals in India and overseas. The company has over 190 medications, 60 active pharmaceutical ingredients (APIs) for drug manufacture, diagnostic kits, critical care, and biotechnology products. Dr. Reddy\'s started as a supplier to Indian drug manufacturers, but it soon started exporting to other less-regulated markets that had the advantage of not having to spend time and money on a large number of tests and clinical trials. By the early 1990s, the expanded scale and profitability from these unregulated markets enabled the company to begin focusing on getting approval from drug regulators for their formulations and bulk drug manufacturing plants in more-developed economies. This allowed their movement into regulated markets such as the US and Europe.',
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                    OpportunitiesCard(
-                      title: 'Reliance',
-                      stipend: 'INR 60,000',
-                      location: 'Jamnagar,IND',
-                      lastDateOfApply: '03/07/2024',
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Opportunities_Detail_Page(
-                              title: 'Reliance',
-                              stipend: 'INR 60,000',
-                              location: 'Jamnagar,IND',
-                              domain: 'Petrochemicals',
-                              role: 'Intern',
-                              description:
-                                  'Reliance Industries Limited is an Indian multinational conglomerate company headquartered in Mumbai, Maharashtra, India. Reliance owns businesses across India engaged in energy, petrochemicals, textiles, natural resources, retail, and telecommunications. Reliance is one of the most profitable companies in India, the largest publicly traded company in India by market capitalization, and the largest company in India as measured by revenue after recently surpassing the government-controlled Indian Oil Corporation. On 18 October 2007, Reliance Industries became the first Indian company to breach 100 billion dollars market capitalization. The company is ranked 96th on the Fortune Global 500 list of the world\'s biggest corporations as of 2021.',
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                    OpportunitiesCard(
-                      title: 'BASF',
-                      stipend: 'EUR 1000/-',
-                      location: 'Berlin,GER',
-                      lastDateOfApply: '03/07/2024',
-                      isFavourite: true,
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Opportunities_Detail_Page(
-                              title: 'BASF',
-                              stipend: 'EUR 1000/-',
-                              location: 'Berlin,GER',
-                              domain: 'Agrochemicals',
-                              role: 'Intern',
-                              description:
-                                  'BASF is a German multinational chemical company and the largest chemical producer in the world. The BASF Group comprises subsidiaries and joint ventures in more than 80 countries and operates six integrated production sites and 390 other production sites in Europe, Asia, Australia, the Americas and Africa. Its headquarters is located in Ludwigshafen, Germany. BASF has customers in over 190 countries and supplies products to a wide variety of industries. Despite its size and global presence, BASF has received relatively little public attention since it abandoned manufacturing and selling BASF-branded consumer electronics products in the 1990s.',
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Container(
-              color: Colors.blue,
-              child: Text('Placement'),
-            ),
-            Container(color: Colors.green, child: Text('Project')),
+            _isLoading
+                ? CircularProgressIndicator()
+                : _buildOpportunitiesList(getOpportunitiesByType('Internship')),
+            _isLoading
+                ? CircularProgressIndicator()
+                : _buildOpportunitiesList(getOpportunitiesByType('Placement')),
+            _isLoading
+                ? CircularProgressIndicator()
+                : _buildOpportunitiesList(getOpportunitiesByType('Projects')),
           ]),
         )
       ]),
     );
   }
 }
-
-
-
