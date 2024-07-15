@@ -1,5 +1,6 @@
 // ignore_for_file: file_names, curly_braces_in_flow_control_structures, prefer_const_constructors, must_be_immutable
 
+import 'package:chea/utils/auth_service.dart';
 import 'package:chea/utils/bottom_navbar.dart';
 import 'package:chea/utils/cheagpt.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ import 'opportunities_component/opportunitiesPage.dart';
 int defaultBackground = 0xff08050c;
 
 class Opportunity {
+  final int id;
   final String title;
   final String stipend;
   final String location;
@@ -21,17 +23,19 @@ class Opportunity {
   final String domain;
   final String role;
   final String opportunityType;
-  final bool isFavourite = false;
+  bool isFavourite ;
 
   Opportunity(
       {required this.title,
-      required this.stipend,
+        required this.stipend,
       required this.location,
       required this.lastDateOfApply,
       required this.description,
       required this.domain,
       required this.role,
-      required this.opportunityType});
+      required this.opportunityType,
+      this.isFavourite = false,
+      required this.id,});
 
   static String formatStipend(String stipend) {
     Map<String, String> currencySymbols = {
@@ -51,6 +55,7 @@ class Opportunity {
 
   factory Opportunity.fromJson(Map<String, dynamic> json) {
     return Opportunity(
+        id: json['id'],
         title: json['title'],
         stipend: formatStipend(json['stipend']),
         location: json['location'],
@@ -63,8 +68,14 @@ class Opportunity {
 }
 
 Future<List<Opportunity>> getOpportunities() async {
+  final token = await AuthService().getToken();
   final response = await http
-      .get(Uri.parse('http://10.0.2.2:8000/opportunities/opportunities/'));
+      .get(Uri.parse('http://10.0.2.2:8000/opportunities/opportunities/'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Token $token',
+      },
+  );
   if (response.statusCode == 200) {
     List jsonResponse = json.decode(response.body);
     // print(jsonResponse);
@@ -74,6 +85,27 @@ Future<List<Opportunity>> getOpportunities() async {
   } else {
     throw Exception('Failed to load opportunities');
   }
+}
+
+Future<void> toggleFavorite(Opportunity opportunity) async {
+  final token = await AuthService().getToken();
+  final endpoint = opportunity.isFavourite
+      ? 'remove_favorite'
+      : 'add_favorite';
+  final response = await http.post(
+    Uri.parse('http://10.0.2.2:8000/opportunities/$endpoint/'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'Token $token',
+    },
+    body: jsonEncode(<String, int>{
+      'opportunity_id': opportunity.id,
+    }),
+  );
+  if(response.statusCode == 201 || response.statusCode == 200)
+    opportunity.isFavourite = !opportunity.isFavourite;
+  else
+    throw Exception('Failed to toggle favorite');
 }
 
 class Opportunities extends StatefulWidget {
@@ -113,11 +145,7 @@ class _OpportunitiesState extends State<Opportunities>
         itemBuilder: (context, index) {
           final opportunity = opportunities[index];
           return OpportunitiesCard(
-            title: opportunity.title,
-            stipend: opportunity.stipend,
-            location: opportunity.location,
-            lastDateOfApply: opportunity.lastDateOfApply,
-            isFavourite: opportunity.isFavourite,
+            opportunity: opportunity,
             onTap: () {
               Navigator.push(
                 context,
