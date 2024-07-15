@@ -125,6 +125,7 @@ class _MyAppState extends State<MyApp> {
         '/internblog': (context) =>  InternBlog(),
         '/bookmarks': (context) => const BookmarkedArticles(),
         '/favopportunities': (context) => const Favopportunities(),
+        '/logout': (context) => const WelcomeScreen(),
       },
     );
   }

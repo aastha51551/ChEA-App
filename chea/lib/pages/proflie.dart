@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../utils/auth_service.dart';
+
 int defaultBackground = 0xff09050d;
 
 class UserService {
@@ -30,6 +32,11 @@ class UserService {
     } else {
       return null;
     }
+  }
+
+  Future<void> performLogout(BuildContext context) async{
+    await AuthService().logout();
+    Navigator.of(context).pushNamedAndRemoveUntil('/logout', (route) => false);
   }
 }
 
@@ -563,7 +570,9 @@ class _ProfileState extends State<Profile> {
                             ),
                             Expanded(
                               child: TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    userService.performLogout(context);
+                                  },
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,

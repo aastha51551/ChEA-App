@@ -31,8 +31,6 @@ class LoginForm extends StatelessWidget {
       final authService = AuthService();
       final response = await authService.login(email, password);
       if (response.statusCode == 200) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text('Login Successful!')));
         Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
