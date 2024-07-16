@@ -84,10 +84,10 @@ class _ProfileState extends State<Profile> {
 
   Future<void> _uploadFile(String resumeType,File file) async{
     final token = await AuthService().getToken();
-    String url = 'http://10.0.2.2:8000/users/$resumeType/';
+    String url = 'http://10.0.2.2:8000/users/update_$resumeType/';
     final request = http.MultipartRequest('POST', Uri.parse(url));
     request.headers['Authorization'] = 'Token $token';
-    request.files.add(await http.MultipartFile.fromPath('file', file.path));
+    request.files.add(await http.MultipartFile.fromPath(resumeType, file.path));
     final response = await request.send();
     if(response.statusCode == 200){
       setState(() {
@@ -97,6 +97,9 @@ class _ProfileState extends State<Profile> {
           isPage2ResumeUploaded = true;
         }
       });
+    } else{
+
+      print(response);
     }
   }
 

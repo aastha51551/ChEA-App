@@ -101,6 +101,7 @@ def update_resume1(request):
         user.save()
         return Response({'message':"Resume uploaded successfully"},status=status.HTTP_200_OK)
     except ValidationError as e:
+        print('validation error')
         return Response({'message': str(e)},status=status.HTTP_400_BAD_REQUEST)
     
 @api_view(['POST'])
