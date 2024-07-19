@@ -1,3 +1,4 @@
+from xml.dom import ValidationErr
 from rest_framework import status
 from django.core.mail import send_mail
 from django.contrib.auth.tokens import default_token_generator
@@ -10,6 +11,7 @@ from rest_framework.permissions import IsAuthenticated
 from .serializers import UserSignupSerializer, UserSerializer
 from django.contrib.auth import authenticate,get_user_model
 from rest_framework.authtoken.models import Token
+from django.core.exceptions import ValidationError
 
 
 @api_view(['POST'])
@@ -86,3 +88,32 @@ def fet_user_data(request):
         return Response(serializer.data,status=status.HTTP_200_OK)
     except User.DoesNotExist:
         return Response({'message':"User does not exist"},status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def update_resume1(request):
+    user = request.user
+    resume_file = request.FILES.get('resume1')
+    if not resume_file:
+        return Response({'message':"Resume file is required"},status=status.HTTP_400_BAD_REQUEST)
+    try:
+        user.resume1 = resume_file
+        user.save()
+        return Response({'message':"Resume uploaded successfully"},status=status.HTTP_200_OK)
+    except ValidationError as e:
+        print('validation error')
+        return Response({'message': str(e)},status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def update_resume2(request):
+    user = request.user
+    resume_file = request.FILES.get('resume2')
+    if not resume_file:
+        return Response({'message':"Resume file is required"},status=status.HTTP_400_BAD_REQUEST)
+    try:
+        user.resume2 = resume_file
+        user.save()
+        return Response({'message':"Resume uploaded successfully"},status=status.HTTP_200_OK)
+    except ValidationError as e:
+        return Response({'message': str(e)},status=status.HTTP_400_BAD_REQUEST)

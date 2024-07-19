@@ -49,10 +49,6 @@ class _SignUpFormState extends State<SignUpForm> {
     if(response.statusCode == 201){
       String token = jsonDecode(response.body)['token'];
       await AuthService().setToken(token);
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Sign Up Successful!'))
-      );
       Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
