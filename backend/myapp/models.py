@@ -22,3 +22,20 @@ class FavoriteOpportunity(models.Model):
 
     def __str__(self):
         return f"{self.user.email} - {self.opportunity.title}"
+    
+class Blog(models.Model):
+    blog_type = models.CharField(max_length=50)
+    image_url = models.URLField()
+    description = models.TextField()
+    subtitle = models.TextField()
+    title = models.TextField()
+    date = models.DateField()
+    name = models.CharField(max_length=50,null=True,blank=True)
+
+
+class BookmarkedBlog(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"{self.user.email} - {self.blog.title}"

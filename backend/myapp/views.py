@@ -7,18 +7,21 @@ from rest_framework import status
 from django.db.models import Case, When, Value, BooleanField
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def get_opportunities(request):
-    user = request.user
-    opportunities = Opportunity.objects.annotate(
-        isFavourite=Case(
-            When(favoriteopportunity__user=user, then=Value(True)),
-            default=Value(False),
-            output_field=BooleanField()
-        )
-    )
-    serializer = OpportunitiesSerializer(opportunities,many=True)
-    return Response(serializer.data,status=status.HTTP_200_OK)
+    print("hello")
+    # user = request.user
+    # opportunities = Opportunity.objects.annotate(
+    #     isFavourite=Case(
+    #         When(favoriteopportunity__user=user, then=Value(True)),
+    #         default=Value(False),
+    #         output_field=BooleanField()
+    #     )
+    # )
+    # serializer = OpportunitiesSerializer(opportunities,many=True)
+    # print(serializer)
+    # return Response(serializer.data,status=status.HTTP_200_OK)
+    return
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
